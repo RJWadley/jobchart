@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Title Goes here</title>
+  <title>Job Chart</title>
   <meta name="description" content="A task chart">
   <meta name="author" content="Robert Wadley">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- stylesheets -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <link href="mdb.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <!--scripts -->
 
 
@@ -27,299 +27,86 @@
 
 <body>
 
-  <div class="chart">
-    <div class="chart-col-4">
-      <h2 class="chart-header">Name</h2>
-      <ul>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-      </ul>
-    </div>
-    <div class="chart-col-4">
-      <h2 class="chart-header">Name</h2>
-      <ul>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-      </ul>
-    </div>
-    <div class="chart-col-4">
-      <h2 class="chart-header">Name</h2>
-      <ul>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-      </ul>
-    </div>
-    <div class="chart-col-4">
-      <h2 class="chart-header">Name</h2>
-      <ul>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-        <li class="chart-cell">Content</li>
-      </ul>
-    </div>
+  <!-- menu toggle -->
+  <button class="w3-btn sidebar-toggle"><i class="material-icons">menu</i></button>
+  <div class="w3-sidebar w3-bar-block sidebar">
+    <a href="#" class="w3-bar-item w3-button settings-toggle">Settings</a>
+    <a href="#" class="w3-bar-item w3-button reset">Reset</a>
   </div>
-  <div class="container-fluid">
-    <button class="btn btn-danger" onclick="localStorage.clear();">Reset</button>
-    <button class="btn btn-success" onclick="settings();"><h1>Open Settings</h1></button>
 
-    <!--Splash Screen-->
-    <div id=loadtime></div>
-
-    <div id="welcome">
-      <div class="welcome-circle">
-        <div class="welcome-content">
-          <h1>Hey There!</h1>
-          <p>Ready to get set up?</p>
-          <button id="splashButton" class="btn btn-primary">Let's Go!</button>
-        </div>
-      </div>
+  <!-- The Settings Modal -->
+  <div class="settings">
+    <div class="w3-container w3-blue">
+      <h1>Settings</h1>
+      <span class="w3-button w3-display-topright settings-close">&times;</span>
     </div>
-
-
-    <!--Settings Screen-->
-    <div id="settings" class="opensettings">
-
-      <h1 class="text-center jumbotron settings-header">Settings</h1>
-      <div class="settings-content container card">
-
-
-        <div id="people" class="settings-section">
-          <h1 class="text-center">People</h1>
-          <div class="text-center button-row">
-            <button class="btn btn-responsive btn-success col-md-3" id="savePeople">Save People</button>
-            <button class="btn btn-responsive btn-primary col-md-3" id="addPerson">Add Person</button>
-            <button class="btn btn-responsive btn-danger col-md-3" id="removePerson">Remove Person</button>
-          </div>
-          <!-- Templates -->
-          <div id="template-person" class="template">
-            <div class="md-form animated fadeIn">
-              <input type="text" class="form-control">
+    <div class='w3-container w3-margin'>
+      <div class='people w3-margin'>
+        <div class='w3-center'>
+          <button class='w3-btn w3-green add-person-button'>Add Person</button>
+          <button class='w3-btn w3-red remove-person-button'>Remove Person</button>
+        </div>
+        <form class="w3-container people-list">
+        </form>
+      </div>
+      <div class='tasks w3-margin'>
+        <div class=w3-center>
+          <button class='w3-btn w3-green add-task-button'>Add Task</button>
+          <button class='w3-btn w3-red remove-task-button'>Remove Task</button>
+        </div>
+        <form class="w3-container">
+          <div class='w3-row'>
+            <p class='w3-col s9'>
               <label>Name</label>
+              <input class="w3-input" type="text">
+            </p>
+            <div class='w3-col s3 w3-container task-button-container'>
+              <button class='w3-btn w3-block w3-indigo task-button'>Edit</button>
             </div>
           </div>
-
-          <!-- begin task -->
-          <div id="template-task" class="row text-center settings-task template">
-            <div class="settings-name md-form col-sm-9" style="height:100%; padding:0px">
-              <input type="text" id="template-task-name" class="form-control">
-              <label for="template-task-name" class="">Task Name</label></div>
-            <!-- Button trigger modal -->
-            <div class="col-sm-3">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#template-task-modal">
-          Edit
-          </button>
-            </div>
-
-          </div>
-          <!-- end task -->
-
-          <div class="modal fade template" id="template-task-modal" tabindex="-1" role="dialog" aria-labelledby="template-task-modal-label" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-
-                  <div class="modal-header">
-                    <h1>Edit Task</h1>
-                  </div>
-                  <div class="modal-body">
-
-                    <ul class="nav nav-tabs nav-justified">
-                      <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#template-task-panel1" role="tab">Standard</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#template-task-panel2" role="tab">Special</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#template-task-panel3" role="tab">Static</a>
-                      </li>
-                    </ul>
-                    <!-- Tab panels -->
-                    <div class="tab-content card">
-                      <!--Panel 1-->
-                      <div class="tab-pane fade in show active" id="template-task-panel1" role="tabpanel">
-                        <br>
-                        <div class="form-group">
-                          <input type="radio" name="template-task-type" class="with-gap" id="template-task-type-daily">
-                          <label for="template-task-type-daily">Daily</label>
-                        </div>
-                        <div class="form-group">
-                          <input type="radio" name="template-task-type" class="with-gap" id="template-task-type-weekly">
-                          <label for="template-task-type-weekly">Weekly</label>
-                        </div>
-                      </div>
-                      <!--/.Panel 1-->
-                      <!--Panel 2-->
-                      <div class="tab-pane fade" id="template-task-panel2" role="tabpanel">
-                        <br>
-                        <p>Loarem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.
-                        </p>
-                        <p>Lorddem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit minima.
-                        </p>
-                      </div>
-                      <!--/.Panel 2-->
-                      <!--Panel 3-->
-                      <div class="tab-pane fade" id="template-task-panel3" role="tabpanel">
-                        <br>
-                        <p>Lorecccccm ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione porro voluptate odit
-                          minima.
-                        </p>
-                      </div>
-                      <!--/.Panel 3-->
-                    </div>
-                    <i style="margin: 20px"></i>
-
-                    <div class="card card-cascade narrower">
-
-                      <!--Card image-->
-                      <div class="view gradient-card-header blue-gradient">
-                        <h2 class="h2-responsive">People</h2>
-                      </div>
-                      <!--/Card image-->
-
-                      <!--Card content-->
-                      <div class="card-body text-center">
-                        <ul class="list-group task-people-list">
-                          <!-- An item -->
-                          <li class="list-group-item">
-                            <table class="template-task-person-list" style="width:100%; height:100%">
-                              <tr>
-                                <td align="left" style="font-size: 1.25rem">Name Here</td>
-                                <td align="right">
-                                  <label class="switch" for="template-task-person1">
-                        <input type="checkbox" checked id="template-task-person1"/>
-                        <span class="slider round"></span>
-                        </label>
-                                </td>
-                                <tr>
-                            </table>
-                          </li>
-                          <li class="list-group-item">
-                            <table class="template-task-person-list" style="width:100%; height:100%">
-                              <tr>
-                                <td align="left" style="font-size: 1.25rem">Name Here</td>
-                                <td align="right">
-                                  <label class="switch" for="template-task-person1">
-                        <input type="checkbox" checked id="template-task-person1"/>
-                        <span class="slider round"></span>
-                        </label>
-                                </td>
-                                <tr>
-                            </table>
-                          </li>
-                          <li class="list-group-item">
-                            <table class="template-task-person-list" style="width:100%; height:100%">
-                              <tr>
-                                <td align="left" style="font-size: 1.25rem">Name Here</td>
-                                <td align="right">
-                                  <label class="switch" for="template-task-person1">
-                        <input type="checkbox" checked id="template-task-person1"/>
-                        <span class="slider round"></span>
-                        </label>
-                                </td>
-                                <tr>
-                            </table>
-                          </li>
-                          <!-- End item
-                    <li class="list-group-item">
-
-                      <table class="template-task-person-list" style="width:100%; height:100%">
-                        <tr>
-                          <td align="left" style="font-size: 1.25rem">Name Here</td>
-                          <td align="right">
-                            <div class="switch" style="width:100%; font-size: 1.30rem">
-                              <label>
-      <input type="checkbox">
-      <span class="lever"></span>
-    </label>
-                            </div>
-                          </td>
-                          <tr>
-                      </table>
-
-
-
-                    </li>
-                    <li class="list-group-item">
-                    <div class="form-group">
-        <input type="checkbox" id="template-task-check">
-        <label for="template-task-check">Classic checkbox</label>
-    </div>
-                    </li>-->
-                        </ul>
-                      </div>
-                      <!--/.Card content-->
-
-                    </div>
-                  </div>
-                  <button type="button" class="btn btn-block btn-primary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- end Templates -->
-          <div id="person-list" class="settings-section">
-            <!--insert templates here-->
-
-          </div>
-
-
-        </div>
-
-        <div class="settings-section">
-          <h1 class="text-center settings-section-header">Tasks</h1>
-          <div class="text-center button-row">
-            <button class="btn btn-responsive btn-success col-md-3 " id="saveTasks">Save tasks</button>
-            <button class="btn btn-responsive btn-primary col-md-3" id="addTask">Add task</button>
-            <button class="btn btn-responsive btn-danger col-md-3" id="removeTask">Remove task</button>
-          </div>
-          <div id="tasks-list" class="text-center">
-            <!-- insert templates here -->
-          </div>
-        </div>
-        <div class="text-center">
-          <button id="updateSettings" class="btn btn-info aqua-gradient">Update and Close</button>
-        </div>
+        </form>
       </div>
-
-
-
-    </div>
-
-    <div id="rotate">
-      <div>
-        <h4>Please rotate your screen for the best experience.</h4>
-        <button class="btn btn-danger" onclick="document.getElementById('rotate').style.display='none';">No thanks.</button>
+      <div class='w3-center'>
+        <button class='w3-btn aqua-gradient'>Save and Close</button>
       </div>
     </div>
-
-
-
-    <!-- Modal -->
-    <div id="modals-list">
-
-    </div>
-
   </div>
+
+  <!-- The Table -->
+
+  <table>
+    <tr>
+      <th>Robbie</th>
+      <th>Yeet</th>
+      <th>Jump</th>
+    </tr>
+    <tr>
+      <th>Josei</th>
+      <th>jump</th>
+      <th>Jump</th>
+    </tr>
+    <tr>
+      <th>Chris</th>
+      <th>Dishes</th>
+      <th>Clean</th>
+    </tr>
+    <tr>
+      <th>Mom</th>
+      <th>Fun</th>
+      <th>Ice Cream</th>
+    </tr>
+  </table>
+
+  <div class='template'>
+    <p>
+      <label id="person-#-name">Name</label>
+      <input class="w3-input" type="text">
+    </p>
+  </div>
+
   <!-- SCRIPTS -->
   <!-- JQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="js/mdb.min.js"></script>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="script.js"></script>
 </body>
 
