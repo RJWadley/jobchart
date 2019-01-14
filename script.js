@@ -27,8 +27,9 @@ var chartData;
 $('.sidebar-toggle').click(function() {
   $('.sidebar').toggle();
 })
-$('.settings-toggle').click(function() {
+$('.settings-open').click(function() {
   $('.settings').addClass('opensettings');
+  $('.sidebar').hide();
 })
 $('.settings-close').click(function() {
   saveAndClose();
@@ -43,6 +44,12 @@ $('.add-person-button').click(function() {
 })
 $('.remove-person-button').click(function() {
   removePerson();
+})
+$('.add-task-button').click(function() {
+  addTask();
+})
+$('.remove-task-button').click(function() {
+  removeTask();
 })
 $('.saveAndClose').click(function() {
   saveAndClose();
@@ -83,9 +90,9 @@ function loadData() {
 
 function addPerson() {
   if (chartData.people.length < 12) {
-    let element = $('.template').first().html();
+    let element = $(".template div:nth-child(1)").html();
     let elemId = chartData.people.length;
-    element = element.replace(/#/g, elemId);
+    element = element.replace(/thisNumber/g, elemId);
     $('.people-list').append(element);
     chartData.people.push(undefined);
     $(`#person-${elemId}-input`).focus();
@@ -103,6 +110,22 @@ function removePerson() {
     .remove();
   chartData.people.pop();
 }
+
+function addTask() {
+  let element = $(".template div:nth-child(2)").html();
+  let elemId = chartData.tasks.length;
+  element = element.replace(/thisNumber/g, elemId);
+  $('.tasks-list').append(element);
+  chartData.tasks.push({});
+  $(`#tasks-${elemId}-input`).focus();
+}
+
+function removeTask() {  //remove from html and array
+  $(".tasks-list")
+    .children()
+    .last()
+    .remove();
+  chartData.tasks.pop();}
 
 function saveAndClose() {
 
@@ -136,8 +159,8 @@ $(document).ready(function() {
 
   let peopleNum = chartData.people.length; //to fix infinite loop
   for (let i = 0; i < peopleNum; i++) {
-    let element = $('.template').first().html();
-    element = element.replace(/#/g, i);
+    let element = $(".template div:nth-child(1)").html();
+    element = element.replace(/thisNumber/g, i);
     $('.people-list').append(element);
     let text = chartData.people[i];
     $(`#person-${i}-input`).val(text); //set textbox value

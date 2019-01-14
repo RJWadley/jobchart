@@ -30,7 +30,7 @@
   <!-- menu toggle -->
   <button class="w3-btn sidebar-toggle"><i class="material-icons">menu</i></button>
   <div class="w3-sidebar w3-bar-block sidebar">
-    <a href="#" class="w3-bar-item w3-button settings-toggle">Settings</a>
+    <a href="#" class="w3-bar-item w3-button settings-open">Settings</a>
     <a href="#" class="w3-bar-item w3-button reset">Reset</a>
   </div>
 
@@ -54,16 +54,7 @@
           <button class='w3-btn w3-green add-task-button'>Add Task</button>
           <button class='w3-btn w3-red remove-task-button'>Remove Task</button>
         </div>
-        <form class="w3-container">
-          <div class='w3-row'>
-            <p class='w3-col s9'>
-              <label>Name</label>
-              <input class="w3-input" type="text">
-            </p>
-            <div class='w3-col s3 w3-container task-button-container'>
-              <button class='w3-btn w3-block w3-indigo task-button'>Edit</button>
-            </div>
-          </div>
+        <form class="w3-container tasks-list">
         </form>
       </div>
       <div class='w3-center'>
@@ -98,10 +89,36 @@
   </table>
 
   <div class='template'>
-    <p>
-      <label id="person-#-name">Name</label>
-      <input id="person-#-input" class="w3-input" type="text">
-    </p>
+    <div>
+      <p>
+        <label id="person-thisNumber-name">Name</label>
+        <input id="person-thisNumber-input" class="w3-input" type="text">
+      </p>
+    </div>
+    <div>
+      <div class='w3-row'>
+        <div class='w3-col s9'>
+          <label>Name</label>
+          <input id='tasks-thisNumber-input' class="w3-input" type="text">
+        </div>
+        <div class='w3-col s3 w3-container task-button-container'>
+          <button onclick="$('#task-thisNumber-modal').show()" class='w3-btn w3-block w3-indigo task-button'>Edit</button>
+        </div>
+        <div id="task-thisNumber-modal" class="w3-modal">
+          <div class="w3-modal-content">
+            <div class="w3-container">
+              <span onclick="document.getElementById('task-thisNumber-modal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+              <div class='w2-row w3-margin'>
+                <button class="w3-bar-item w3-btn w3-light-blue">Method 1</button>
+              </div>
+              <div id='task-thisNumber-method1'>Method1 stuff
+              </div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- SCRIPTS -->
