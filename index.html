@@ -3,23 +3,23 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
 
-  <title>Job Chart</title>
-  <meta name="description" content="A task chart">
-  <meta name="author" content="Robert Wadley">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- stylesheets -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <!--scripts -->
-
-
-  <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> font awesome if I ever need it -->
+	<title>Job Chart</title>
+	<meta name="description" content="A task chart">
+	<meta name="author" content="Robert Wadley">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- stylesheets -->
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<!--scripts -->
 
 
-  <!--[if lt IE 9]>
+	<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> font awesome if I ever need it -->
+
+
+	<!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
 
@@ -27,104 +27,115 @@
 
 <body>
 
-  <!-- menu toggle -->
-  <button class="w3-btn sidebar-toggle"><i class="material-icons">menu</i></button>
-  <div class="w3-sidebar w3-bar-block sidebar">
-    <a href="#" class="w3-bar-item w3-button settings-open">Settings</a>
-    <a href="#" class="w3-bar-item w3-button reset">Reset</a>
-  </div>
+	<!-- menu toggle -->
+	<button class="w3-btn sidebar-toggle"><i class="material-icons">menu</i></button>
+	<div class="w3-sidebar w3-bar-block sidebar">
+		<a href="#" class="w3-bar-item w3-button settings-open">Settings</a>
+		<a href="#" class="w3-bar-item w3-button reset">Reset</a>
+	</div>
 
-  <!-- The Settings Modal -->
-  <div class="settings">
-    <div class="w3-container w3-blue">
-      <h1>Settings</h1>
-      <span class="w3-button w3-display-topright settings-close">&times;</span>
-    </div>
-    <div class='w3-container w3-margin'>
-      <div class='people w3-margin'>
-        <div class='w3-center'>
-          <button class='w3-btn w3-green add-person-button'>Add Person</button>
-          <button class='w3-btn w3-red remove-person-button'>Remove Person</button>
-        </div>
-        <form class="w3-container people-list">
-        </form>
-      </div>
-      <div class='tasks w3-margin'>
-        <div class=w3-center>
-          <button class='w3-btn w3-green add-task-button'>Add Task</button>
-          <button class='w3-btn w3-red remove-task-button'>Remove Task</button>
-        </div>
-        <form class="w3-container tasks-list">
-        </form>
-      </div>
-      <div class='w3-center'>
-        <button class='w3-btn aqua-gradient saveAndClose'>Save and Close</button>
-      </div>
-    </div>
-  </div>
+	<!-- The Settings Modal -->
+	<div class="settings">
+		<div class="w3-container w3-blue">
+			<h1>Settings</h1>
+			<span class="w3-button w3-display-topright settings-close">&times;</span>
+		</div>
+		<div class='w3-container w3-margin'>
+			<div class='people w3-margin'>
+				<form class="w3-container people-list">
+				</form>
+				<div class='w3-center'>
+					<button class='w3-btn w3-green add-person-button'>Add Person</button>
+					<button class='w3-btn w3-red remove-person-button'>Remove Person</button>
+				</div>
+			</div>
+			<div class='tasks w3-margin'>
+				<form class="w3-container tasks-list">
+				</form>
+				<div class=w3-center>
+					<button class='w3-btn w3-green add-task-button'>Add Task</button>
+					<button class='w3-btn w3-red remove-task-button'>Remove Task</button>
+				</div>
+			</div>
+			<div class='w3-center'>
+				<button class='w3-btn aqua-gradient saveAndClose'>Save and Close</button>
+			</div>
+		</div>
+	</div>
 
-  <!-- The Table -->
+	<!-- The Table -->
 
-  <table>
-    <tr>
-      <th>Robbie</th>
-      <td>Yeet</td>
-      <td>Jump</td>
-    </tr>
-    <tr>
-      <th>Josei</th>
-      <td>jump</td>
-      <td>Jump</td>
-    </tr>
-    <tr>
-      <th>Chris</th>
-      <td>Dishes</td>
-      <td>Clean</td>
-    </tr>
-    <tr>
-      <th>Mom</th>
-      <td>Fun</td>
-      <td>Ice Cream</td>
-    </tr>
-  </table>
+	<table>
+		<tr>
+			<th>Robbie</th>
+			<td>Yeet</td>
+			<td>Jump</td>
+		</tr>
+		<tr>
+			<th>Josei</th>
+			<td>jump</td>
+			<td>Jump</td>
+		</tr>
+		<tr>
+			<th>Chris</th>
+			<td>Dishes</td>
+			<td>Clean</td>
+		</tr>
+		<tr>
+			<th>Mom</th>
+			<td>Fun</td>
+			<td>Ice Cream</td>
+		</tr>
+	</table>
 
-  <div class='template'>
-    <div>
-      <p>
-        <label id="person-thisNumber-name">Name</label>
-        <input id="person-thisNumber-input" class="w3-input" type="text">
-      </p>
-    </div>
-    <div>
-      <div class='w3-row'>
-        <div class='w3-col s9'>
-          <label>Name</label>
-          <input id='tasks-thisNumber-input' class="w3-input" type="text">
-        </div>
-        <div class='w3-col s3 w3-container task-button-container'>
-          <button onclick="$('#task-thisNumber-modal').show()" class='w3-btn w3-block w3-indigo task-button'>Edit</button>
-        </div>
-        <div id="task-thisNumber-modal" class="w3-modal">
-          <div class="w3-modal-content">
-            <div class="w3-container">
-              <span onclick="document.getElementById('task-thisNumber-modal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-              <div class='w2-row w3-margin'>
-                <button class="w3-bar-item w3-btn w3-light-blue">Method 1</button>
-              </div>
-              <div id='task-thisNumber-method1'>Method1 stuff
-              </div>
-              <div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class='template'>
+		<div>
+			<p>
+				<label id="person-thisNumber-name">Name</label>
+				<input id="person-thisNumber-input" class="w3-input" type="text">
+			</p>
+		</div>
+		<div>
+			<div class='w3-row'>
+				<div class='w3-col s9'>
+					<label>Name</label>
+					<input id='tasks-thisNumber-input' class="w3-input" type="text">
+				</div>
+				<div class='w3-col s3 w3-container task-button-container'>
+					<button onclick="$('#task-thisNumber-modal').show()" class='w3-btn w3-block w3-indigo task-button'>Edit</button>
+				</div>
+				<div id="task-thisNumber-modal" class="w3-modal">
+					<div class="w3-modal-content">
+						<div class="w3-container">
+							<span onclick="document.getElementById('task-thisNumber-modal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+							<div class='w2-row w3-margin task-thisNumber-methods'>
+								<button style="cursor: pointer" class="w3-bar-item w3-btn w3-light-blue" onclick="$('.task-thisNumber-method-stuff').children().addClass('w3-hide'); $('.task-thisNumber-method-stuff div:nth-child(1)').removeClass('w3-hide');">Method 1</button>
+								<button style="cursor: pointer" class="w3-bar-item w3-btn w3-light-blue" onclick="$('.task-thisNumber-method-stuff').children().addClass('w3-hide'); $('.task-thisNumber-method-stuff div:nth-child(2)').removeClass('w3-hide');">Method 2</button>
+								<button style="cursor: pointer" class="w3-bar-item w3-btn w3-light-blue" onclick="$('.task-thisNumber-method-stuff').children().addClass('w3-hide'); $('.task-thisNumber-method-stuff div:nth-child(3)').removeClass('w3-hide');">Method 3</button>
+							</div>
+							<div class="task-thisNumber-method-stuff">
+								<div id='task-thisNumber-method1' class='w3-hide'>
+									Method1 stuff
+								</div>
+								<div id='task-thisNumber-method2' class='w3-hide'>
+									Method2 stuff
+								</div>
+								<div id='task-thisNumber-method3' class='w3-hide'>
+									Method3 stuff
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  <!-- SCRIPTS -->
-  <!-- JQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="script.js"></script>
+
+	<!-- SCRIPTS -->
+	<!-- JQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="script.js"></script>
 </body>
 
 </html>
