@@ -43,10 +43,11 @@ html * {
 
 .task-button {
   height: 100%;
+  display: block;
 }
 
 .template {
-  //display: none;
+  display: none;
 }
 
 .sidebar {

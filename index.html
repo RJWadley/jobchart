@@ -45,16 +45,16 @@
 				<form class="w3-container people-list">
 				</form>
 				<div class='w3-center w3-padding'>
-					<button class='w3-btn w3-green add-person-button'>Add Person</button>
-					<button class='w3-btn w3-red remove-person-button'>Remove Person</button>
+					<button class='w3-btn w3-green add-person-button w3-margin'>Add Person</button>
+					<button class='w3-btn w3-red remove-person-button w3-margin'>Remove Person</button>
 				</div>
 			</div>
 			<div class='tasks w3-margin w3-card'>
 				<form class="w3-container w3-padding-16 tasks-list">
 				</form>
 				<div class="w3-center w3-padding">
-					<button class='w3-btn w3-green add-task-button'>Add Task</button>
-					<button class='w3-btn w3-red remove-task-button'>Remove Task</button>
+					<button class='w3-btn w3-green add-task-button w3-margin'>Add Task</button>
+					<button class='w3-btn w3-red remove-task-button w3-margin'>Remove Task</button>
 				</div>
 			</div>
 			<div class='w3-center'>
@@ -91,17 +91,17 @@
 	<div class='template'>
 		<div>
 			<p>
-				<label id="person-thisNumber-name">Name</label>
+				<label>Name</label>
 				<input id="person-thisNumber-input" class="w3-input" type="text">
 			</p>
 		</div>
 		<div>
 			<div class='w3-row'>
-				<div class='w3-col s9'>
+				<div class='w3-threequarter'>
 					<label>Name</label>
 					<input id='tasks-thisNumber-input' class="w3-input" type="text">
 				</div>
-				<div class='w3-col s3 w3-container task-button-container'>
+				<div class='w3-container w3-quarter task-button-container'>
 					<button onclick="$('#task-thisNumber-modal').show()" class='w3-btn w3-block w3-indigo task-button'>Edit</button>
 				</div>
 				<div id="task-thisNumber-modal" class="w3-modal">

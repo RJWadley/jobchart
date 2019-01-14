@@ -160,9 +160,14 @@ function removeTask() { //remove from html and array
 
 function saveAndClose() {
 
-	let peopleNum = chartData.people.length; //to fix infinite loop
+	let peopleNum = chartData.people.length;
 	for (let i = 0; i < peopleNum; i++) {
 		chartData.people[i] = $(`#person-${i}-input`).val(); //set array to textbox value
+	}
+	
+	let tasksNum = chartData.tasks.length;
+	for (let i = 0; i < tasksNum; i++) {
+		chartData.tasks[i].name = $(`#tasks-${i}-input`).val(); //set array to textbox value
 	}
 
 	saveData();
@@ -201,6 +206,15 @@ $(document).ready(function() {
 		$(`#person-${i}-input`).val(text); //set textbox value
 
 	}
-
+	
+	
+	let tasksNum = chartData.tasks.length; //to fix infinite loop
+	for (let i = 0; i < tasksNum; i++) {
+		let element = $(".template div:nth-child(2)").html();
+		element = element.replace(/thisNumber/g, i);
+		$('.tasks-list').append(element);
+		let text = chartData.tasks[i].name;
+		$(`#tasks-${i}-input`).val(text);
+	}
 
 });
