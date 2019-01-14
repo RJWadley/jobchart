@@ -31,7 +31,7 @@ $('.settings-toggle').click(function() {
   $('.settings').addClass('opensettings');
 })
 $('.settings-close').click(function() {
-  $('.settings').removeClass('opensettings');
+  saveAndClose();
 })
 $('.reset').click(function() {
   if (confirm("Are you sure?")) {
@@ -43,6 +43,9 @@ $('.add-person-button').click(function() {
 })
 $('.remove-person-button').click(function() {
   removePerson();
+})
+$('.saveAndClose').click(function() {
+  saveAndClose();
 })
 
 //functions
@@ -81,8 +84,11 @@ function loadData() {
 function addPerson() {
   if (chartData.people.length < 12) {
     let element = $('.template').first().html();
+    let elemId = chartData.people.length;
+    element = element.replace(/#/g, elemId);
     $('.people-list').append(element);
-    chartData.people.push('');
+    chartData.people.push(undefined);
+    $(`#person-${elemId}-input`).focus();
   } else {
     alert('Too many peeps!')
     return;
@@ -96,6 +102,17 @@ function removePerson() {
     .last()
     .remove();
   chartData.people.pop();
+}
+
+function saveAndClose() {
+
+  let peopleNum = chartData.people.length; //to fix infinite loop
+  for (let i = 0; i < peopleNum; i++) {
+    chartData.people[i] = $(`#person-${i}-input`).val(); //set array to textbox value
+  }
+
+  saveData();
+  $('.settings').removeClass('opensettings');
 }
 
 $(document).ready(function() {
@@ -116,5 +133,16 @@ $(document).ready(function() {
 
   //load chartData every time
   loadData();
+
+  let peopleNum = chartData.people.length; //to fix infinite loop
+  for (let i = 0; i < peopleNum; i++) {
+    let element = $('.template').first().html();
+    element = element.replace(/#/g, i);
+    $('.people-list').append(element);
+    let text = chartData.people[i];
+    $(`#person-${i}-input`).val(text); //set textbox value
+
+  }
+
 
 })
