@@ -22,15 +22,6 @@ function getItem(name) {
     return data;
 }
 
-//if when the site is loaded no data exists populate with sample data
-if (getItem("chartData") === null) {
-    people = ["steve", "john", "sue", "mary jane"]
-    dailyJobs = ["wash dishes", "dry dishes", "clear off counters", "sweep floor",
-        "mop floor", "set table", "clean living room", "clean bathroom",
-        "load dishwasher", "empty dishwasher", "vacuum living room", "water the plant",];
-    saveData();
-}
-
 function saveData() {
     //compose a data object and save it
     chartData = {
@@ -55,7 +46,9 @@ function loadData() {
 
 //link sharing
 
-
+$("#link-share").click(function(){
+    console.log(window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(getItem("chartData"))))
+})
 
 //get data to export
 $("#export").click(function(){
@@ -165,6 +158,57 @@ function flipTable() {
     }
 
 }
+
+
+//link importing
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+if (getUrlVars().sharing != undefined) {
+    if (getItem("chartData") == null || confirm("Importing from link. (Data will be replaced, this cannot be undone). Continue?") == true) {
+        alert("Imported from link. Following data was replaced: "+ JSON.stringify(getItem("chartData")));
+
+        try {
+            fromLink = JSON.parse(LZString.decompressFromEncodedURIComponent(getUrlVars().sharing));
+            var backup = getItem("chartData");
+            chartData = fromLink;
+
+            people = chartData.people;
+            dailyJobs = chartData.dailyJobs;
+
+            //update text boxes in settings
+            $('#people').val(people);
+            $('#dailyJobs').val(dailyJobs);
+
+            initTable();
+            window.location = window.location.pathname;
+
+        } catch {
+
+            alert("error importing!! reverting...")
+
+            window.location = window.location.pathname;
+
+        }
+    }
+
+}
+
+//if when the site is loaded no data exists populate with sample data
+if (getItem("chartData") === null) {
+    people = ["steve", "john", "sue", "mary jane"]
+    dailyJobs = ["wash dishes", "dry dishes", "clear off counters", "sweep floor",
+        "mop floor", "set table", "clean living room", "clean bathroom",
+        "load dishwasher", "empty dishwasher", "vacuum living room", "water the plant",];
+    saveData();
+}
+
 
 loadData();
 initTable();

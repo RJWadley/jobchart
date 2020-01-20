@@ -1,5 +1,7 @@
 html * {
     font-family: roboto, Verdana, Geneva, Tahoma, sans-serif;
+    -webkit-transition: all 0.7s 0.3s ease-in-out;
+    transition: all 0.7s 0.3s ease-in-out;
 }
 
 #chart {
