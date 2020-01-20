@@ -1,3 +1,7 @@
+html * {
+    font-family: roboto, Verdana, Geneva, Tahoma, sans-serif;
+}
+
 #chart {
     position: fixed;
     left: 0;
@@ -11,7 +15,6 @@
 th, td {
     text-align: center;
     background-color: whitesmoke;
-    border: 1px solid black;
 }
 
 .settings-container {
@@ -47,7 +50,7 @@ th, td {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    margin: 1px;
+    background: none;
     opacity: 50%;
 }
 
@@ -55,4 +58,8 @@ th, td {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.settings-section {
+    margin: 10px;
 }

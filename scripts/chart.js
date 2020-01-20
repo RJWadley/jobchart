@@ -53,6 +53,10 @@ function loadData() {
     $('#dailyJobs').val(dailyJobs);
 }
 
+//link sharing
+
+
+
 //get data to export
 $("#export").click(function(){
     prompt("Copy the code below", JSON.stringify(getItem("chartData")));
@@ -76,6 +80,17 @@ $("#import").click(function(){
         initTable();
     } catch {
         alert("invalid code");
+
+        chartData = backup;
+
+        people = chartData.people;
+        dailyJobs = chartData.dailyJobs;
+
+        //update text boxes in settings
+        $('#people').val(people);
+        $('#dailyJobs').val(dailyJobs);
+
+        initTable();
         return;
     }
     alert("successfully imported!")
