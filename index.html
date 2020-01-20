@@ -11,7 +11,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- stylesheets -->
 	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<!--scripts -->
 
@@ -27,115 +26,33 @@
 
 <body>
 
-	<!-- menu toggle -->
-	<button class="w3-btn sidebar-toggle"><i class="material-icons">menu</i></button>
-	<div class="w3-sidebar w3-bar-block sidebar">
-		<a href="#" class="w3-bar-item w3-button settings-open">Settings</a>
-		<a href="#" class="w3-bar-item w3-button reset">Reset</a>
-	</div>
+    <div class="settings-container">
+        <form id="settings" accept-charset="UTF-8" autocomplete="off">
+            <label for="people">People</label><br />
+            <input id="people" name="people" type="text" /> <br />
 
-	<!-- The Settings Modal -->
-	<div class="settings">
-		<div class="w3-container w3-blue">
-			<h1>Settings</h1>
-			<span class="w3-button w3-display-topright settings-close">&times;</span>
-		</div>
-		<div class='w3-container w3-margin'>
-			<div class='people w3-margin w3-card'>
-				<form class="w3-container people-list">
-				</form>
-				<div class='w3-center w3-padding'>
-					<button class='w3-btn w3-green add-person-button w3-margin'>Add Person</button>
-					<button class='w3-btn w3-red remove-person-button w3-margin'>Remove Person</button>
-				</div>
-			</div>
-			<div class='tasks w3-margin w3-card'>
-				<form class="w3-container w3-padding-16 tasks-list">
-				</form>
-				<div class="w3-center w3-padding">
-					<button class='w3-btn w3-green add-task-button w3-margin'>Add Task</button>
-					<button class='w3-btn w3-red remove-task-button w3-margin'>Remove Task</button>
-				</div>
-			</div>
-			<div class='w3-center'>
-				<button class='w3-btn aqua-gradient saveAndClose'>Save and Close</button>
-			</div>
-		</div>
-	</div>
+            <label for="dailyJobs">Daily Jobs</label><br />
+            <input id="dailyJobs" name="dailyJobs" type="text" /> <br />
 
-	<!-- The Table -->
+            <button type="submit" value="Submit">Save and Close</button>
+        </form>
+        <button id="export">Backup or Export</button>
+        <button id="import">Import</button>
+    </div>
 
-	<table>
-		<tr>
-			<th>Robbie</th>
-			<td>Yeet</td>
-			<td>Jump</td>
-		</tr>
-		<tr>
-			<th>Josei</th>
-			<td>jump</td>
-			<td>Jump</td>
-		</tr>
-		<tr>
-			<th>Chris</th>
-			<td>Dishes</td>
-			<td>Clean</td>
-		</tr>
-		<tr>
-			<th>Mom</th>
-			<td>Fun</td>
-			<td>Ice Cream</td>
-		</tr>
-	</table>
+    <button id="settings-open"><i class="material-icons">settings</i></button>
 
-	<div class='template'>
-		<div>
-			<p>
-				<label>Name</label>
-				<input id="person-thisNumber-input" class="w3-input" type="text">
-			</p>
-		</div>
-		<div>
-			<div class='w3-row'>
-				<div class='w3-threequarter'>
-					<label>Name</label>
-					<input id='tasks-thisNumber-input' class="w3-input" type="text">
-				</div>
-				<div class='w3-container w3-quarter task-button-container'>
-					<button onclick="$('#task-thisNumber-modal').show()" class='w3-btn w3-block w3-indigo task-button'>Edit</button>
-				</div>
-				<div id="task-thisNumber-modal" class="w3-modal">
-					<div class="w3-modal-content">
-						<div class="w3-container">
-							<span onclick="document.getElementById('task-thisNumber-modal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-							<div class='w2-row w3-margin task-thisNumber-methods'>
-								<button style="cursor: pointer" class="w3-bar-item w3-btn w3-light-blue" onclick="$('.task-thisNumber-method-stuff').children().addClass('w3-hide'); $('.task-thisNumber-method-stuff div:nth-child(1)').removeClass('w3-hide');">Method 1</button>
-								<button style="cursor: pointer" class="w3-bar-item w3-btn w3-light-blue" onclick="$('.task-thisNumber-method-stuff').children().addClass('w3-hide'); $('.task-thisNumber-method-stuff div:nth-child(2)').removeClass('w3-hide');">Method 2</button>
-								<button style="cursor: pointer" class="w3-bar-item w3-btn w3-light-blue" onclick="$('.task-thisNumber-method-stuff').children().addClass('w3-hide'); $('.task-thisNumber-method-stuff div:nth-child(3)').removeClass('w3-hide');">Method 3</button>
-							</div>
-							<div class="task-thisNumber-method-stuff">
-								<div id='task-thisNumber-method1' class='w3-hide'>
-									<input>
-								</div>
-								<div id='task-thisNumber-method2' class='w3-hide'>
-									Method2 stuff
-								</div>
-								<div id='task-thisNumber-method3' class='w3-hide'>
-									Method3 stuff
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
+    <table id="chart">
+        <tbody>
+        </tbody>
+    </table>
 
 	<!-- SCRIPTS -->
 	<!-- JQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="script.js"></script>
+	<script src="libs/lz-string.js"></script>
+	<script src="scripts/chart.js"></script>
+    <script src="scripts/index.js"></script>
 </body>
 
 </html>
