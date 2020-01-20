@@ -30,6 +30,10 @@ function saveData() {
     }
 
     setItem("chartData", chartData);
+
+    //remove sharable link (less confusing)
+    $(".sharable-link").remove();
+
 }
 
 function loadData() {
@@ -47,7 +51,12 @@ function loadData() {
 //link sharing
 
 $("#link-share").click(function(){
-    console.log(window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(getItem("chartData"))))
+    var link = (window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(getItem("chartData"))))
+
+    $(".sharable-link").remove();
+
+    $(".settings-container").append($(`<a href=${link} class="sharable-link">${link}</a>`));
+
 })
 
 //get data to export

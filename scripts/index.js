@@ -7,6 +7,17 @@ $("#settings-close").click(function(){
     loadData();
 })
 
+$("#clear-all-data").click(function(){
+    if (confirm("ARE YOU SURE YOU WANT TO CLEAR ALL DATA? THIS CANNOT BE UNDONE?") == true &&
+        prompt("Type DELETE to confirm") === "DELETE") {
+            localStorage.clear();
+            alert("deleted");
+            location.reload();
+        } else {
+            alert("not deleted");
+        }
+})
+
 var hue = 30
 
 function changeColors(){
@@ -34,5 +45,9 @@ function changeColors(){
 }
 
 changeColors();
-var colors = setInterval(changeColors, 1000)
+var colors = setInterval(changeColors, 1000);
 
+window.onresize = function() {
+    document.body.height = window.innerHeight;
+}
+window.onresize(); // called to initially set the height.
