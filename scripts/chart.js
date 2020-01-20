@@ -25,9 +25,9 @@ function getItem(name) {
 //if when the site is loaded no data exists populate with sample data
 if (getItem("chartData") === null) {
     people = ["steve", "john", "sue", "mary jane"]
-    dailyJobs = ["wash", "dry", "sit", "clean bathroom 2",
-        "wash 2", "dry 2", "sit 2", "clean bathroom",
-        "wash3", "dry3", "sit3", "clean 3",];
+    dailyJobs = ["wash dishes", "dry dishes", "clear off counters", "sweep floor",
+        "mop floor", "set table", "clean living room", "clean bathroom",
+        "load dishwasher", "empty dishwasher", "vacuum living room", "water the plant",];
     saveData();
 }
 
@@ -108,39 +108,47 @@ function initTable() {
     var today = new Date();
     today = Math.floor(today/8.64e7); //epoch time
     var dayCode = today % people.length;
+    console.log("current day code is " + dayCode)
 
-    //add the jobs moving from row to row
+
+    //add the daily jobs moving from row to row
     for (var i = 0; i < dailyJobs.length; i++) {
         $('#chart tr').eq((i + dayCode) % people.length).append($('<td />', { text: dailyJobs[i] }))
     }
 
-    // flip the table
-    flipTable();
+   flipTable();
 
 }
 
 //code to flip table horizontal to vertical
-function flipTable() {
-    $("table").each(function () {
-        var $this = $(this);
-        var newrows = [];
-        $this.find("tr").each(function () {
-            var i = 0;
-            $(this).find("td,th").each(function () {
-                i++;
-                if (newrows[i] === undefined) {
-                    newrows[i] = $("<tr></tr>");
-                }
-                newrows[i].append($(this));
-            });
-        });
-        $this.find("tr").remove();
-        $.each(newrows, function () {
-            $this.append(this);
-        });
-    });
 
-    return false;
+function flipTable() {
+    //get dimensions (not including th)
+    var row = $('#chart tr').length;
+    var col = Math.ceil($("table").find("tr td").length / row)
+
+    //clone the chart and clear the old one
+    var chart = $("#chart");
+    clone = chart.clone();
+    chart.find("tr").remove();
+
+    //copy th
+    chart.append($("<tr></tr>"));
+    chart.find("tr:first").append(clone.find("th"));
+
+    //copy td
+    for (var i = 0; i < col; ++i) {
+        chart.append($("<tr></tr>"));
+        for (var j = 0; j < row; ++j) {
+            newCell = clone.find("tr").eq(j).find("td").eq(i).clone();
+            if (newCell.length == 0) {
+                chart.find("tr:last").append($("<td></td>"));
+                continue;
+            }
+            chart.find("tr:last").append(newCell)
+        }
+    }
+
 }
 
 loadData();
