@@ -51,11 +51,12 @@ function loadData() {
 //link sharing
 
 $("#link-share").click(function(){
-    var link = (window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(getItem("chartData"))))
+
+    var link = (window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData)));
 
     $(".sharable-link").remove();
 
-    $(".settings-container").append($(`<a href=${link} class="sharable-link">${link}</a>`));
+    $(".link-sharing").append($(`<a href=${link} class="sharable-link">${link}</a>`));
 
 })
 
@@ -181,36 +182,36 @@ function getUrlVars() {
 
 if (getUrlVars().sharing != undefined) {
     if (getItem("chartData") == null || confirm("Importing from link. (Data will be replaced, this cannot be undone). Continue?") == true) {
+        
         alert("Imported from link. Following data was replaced: "+ JSON.stringify(getItem("chartData")));
 
         try {
             fromLink = JSON.parse(LZString.decompressFromEncodedURIComponent(getUrlVars().sharing));
             var backup = getItem("chartData");
-            chartData = fromLink;
+            setItem("chartData", fromLink)
 
-            people = chartData.people;
-            dailyJobs = chartData.dailyJobs;
+            people = fromLink.people;
+            dailyJobs = fromLink.dailyJobs;
+            saveData();
 
-            //update text boxes in settings
-            $('#people').val(people);
-            $('#dailyJobs').val(dailyJobs);
-
-            initTable();
             window.location = window.location.pathname;
 
         } catch {
 
             alert("error importing!! reverting...")
+            
+            people = backup.people;
+            dailyJobs = backup.dailyJobs;
+            saveData();
 
             window.location = window.location.pathname;
-
         }
     }
 
 }
 
 //if when the site is loaded no data exists populate with sample data
-if (getItem("chartData") === null) {
+if (getItem("chartData") === null && confirm("populate with sample data?")) {
     people = ["steve", "john", "sue", "mary jane"]
     dailyJobs = ["wash dishes", "dry dishes", "clear off counters", "sweep floor",
         "mop floor", "set table", "clean living room", "clean bathroom",

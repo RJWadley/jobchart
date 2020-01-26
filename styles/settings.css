@@ -1,0 +1,122 @@
+
+.settings-container {
+  position: fixed;
+  overflow-y: scroll;
+  top: -100%;
+  left: 0;
+  padding: 20px;
+  width: calc(100vw - 40px);
+  height: calc(100% - 40px);
+  z-index: 900;
+  background: linear-gradient(0deg, navy, teal);
+}
+
+
+.open-settings {
+  -webkit-transition: all 0.7s 0.3s ease-in-out;
+  transition: all 0.7s 0.3s ease-in-out;
+  -webkit-transform: translateY(100%);
+  /* Chrome, Opera 15+, Safari 3.1+ */
+  -ms-transform: translateY(100%);
+  /* IE 9 */
+  transform: translateY(100%);
+  /* Firefox 16+, IE 10+, Opera */
+}
+
+#settings-open {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    background: none;
+    opacity: 50%;
+}
+
+.settings-section {
+    -webkit-transition: opacity 0s 0s ease-in-out;
+    transition: opacity 0s 0s ease-in-out;
+    margin: 10px;
+    padding: 10px;
+    background-color: white;
+    -webkit-box-shadow: 5px 5px 10px -3px black;
+    box-shadow: 5px 5px 10px -3px black;
+    border-radius: 2px;
+}
+
+#settings {
+    width: 100%;
+}
+
+.settings-button {
+    background-color: deepskyblue;
+    border: 1px solid #005d7c;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 0 0 #005d7c;
+    outline: none;
+    display: inline-block;
+}
+
+#clear-all-data {
+    background-color: #ff7373;
+    border-color: #6e0000;
+    box-shadow: 0 5px 0 0 #6e0000;
+}
+
+.settings-button:active, #clear-all-data:active {
+    -webkit-transition: all 0s 0s ease-in-out;
+    transition: all 0s 0s ease-in-out;
+    box-shadow: none;
+    -webkit-transform: translateY(5px);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateY(5px);
+    /* IE 9 */
+    transform: translateY(5px);
+    /* Firefox 16+, IE 10+, Opera */
+}
+
+textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    padding-top: 13px;
+    border-radius: 10px;
+    resize: none;
+}
+
+textarea:focus {
+    outline: none;
+    border: 1px solid navy;
+}
+
+label {
+    position: relative;
+    top: 10px;
+    left: 20px;
+    background-color: white;
+    padding: 0 5px 0 5px;
+    font-weight: bold;
+}
+
+.helper-text {
+    margin: -3px 0 0 15px;
+    font-size: 75%;
+    opacity: 75%;
+}
+
+label:hover > .helper-text {
+    color: red;
+}
+
+.sharable-link {
+   white-space: pre-wrap;      /* CSS3 */
+   white-space: -moz-pre-wrap; /* Firefox */
+   white-space: -pre-wrap;     /* Opera <7 */
+   white-space: -o-pre-wrap;   /* Opera 7 */
+   word-wrap: break-word;      /* IE */
+}

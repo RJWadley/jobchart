@@ -2,7 +2,7 @@ $("#settings-open").click(function(){
     $(".settings-container").addClass("open-settings");
 })
 
-$("#settings-close").click(function(){
+$(".settings-close").click(function(){
     $(".settings-container").removeClass("open-settings");
     loadData();
 })
@@ -47,7 +47,33 @@ function changeColors(){
 changeColors();
 var colors = setInterval(changeColors, 1000);
 
-window.onresize = function() {
-    document.body.height = window.innerHeight;
+autosize($('textarea'))
+
+var slider = document.getElementById("zoomSlider");
+var output = document.getElementById("zoomLevel");
+slider.value = getItem("zoom")
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+    output.innerHTML = this.value;
+    
+    $("#chart").css("font-size", `${this.value}%`);
+    setItem("zoom", this.value);
+
 }
-window.onresize(); // called to initially set the height.
+
+
+var settingsContainerCSS;
+
+$("#zoomSlider").on("touchstart mousedown", function(){
+    settingsContainerCSS = $(".settings-container").css("background")
+    $(".settings-container").css("background", "none");
+    $("#zoomSlider").parent().parent().siblings().css("opacity", "0");
+})
+
+$("#zoomSlider").on("touchend mouseup", function(){
+    $(".settings-container").css("background", settingsContainerCSS);
+    $("#zoomSlider").parent().parent().siblings().css("opacity", "1");
+})
+
