@@ -51,7 +51,11 @@ autosize($('textarea'))
 
 var slider = document.getElementById("zoomSlider");
 var output = document.getElementById("zoomLevel");
-slider.value = getItem("zoom");
+if (getItem("zoom") != null) {
+    slider.value = getItem("zoom");
+} else {
+    slider.value = 100;
+}
 $("#chart").css("font-size", `${slider.value}%`);
 output.innerHTML = slider.value; // Display the default slider value
 
