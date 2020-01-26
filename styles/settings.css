@@ -83,7 +83,7 @@
 }
 
 textarea {
-    border: none;
+    border: 1px solid gray;
     width: calc(100% - 20px);
     padding: 10px;
     padding-top: 13px;
