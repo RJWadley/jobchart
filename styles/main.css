@@ -19,6 +19,7 @@ html, body {
 th, td {
     text-align: center;
     background-color: whitesmoke;
+    word-wrap: break-word;
 }
 
 h1 {
