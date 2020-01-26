@@ -56,7 +56,7 @@ $("#link-share").click(function(){
 
     $(".sharable-link").remove();
 
-    $(".link-sharing").append($(`<a href=${link} class="sharable-link">${link}</a>`));
+    $(".link-sharing").append($(`<br><a href=${link} class="sharable-link">${link}</a>`));
 
 })
 
@@ -118,7 +118,7 @@ function resizeChart() {
     $("#chart").css("height", window.innerHeight)
 }
 
-$(window).resize(resizeChart());
+window.onresize = resizeChart;
 
 function initTable() {
     //clear table
