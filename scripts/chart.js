@@ -114,6 +114,7 @@ $("#settings").submit(function(e) {
 
 })
 
+//reload the chart when the height changes (for mobile)
 function resizeChart() {
     $("#chart").css("height", window.innerHeight)
 }

@@ -68,6 +68,18 @@ slider.oninput = function() {
 
 }
 
+$("#zoomLevel").keypress(function(e){ return e.which != 13; });
+
+//update value when typed
+$("#zoomLevel").on("input",function(){
+    var value = $("#zoomLevel").html();
+    if (!isNaN(value)) {
+        slider.value = value;
+        $("#chart").css("font-size", `${value}%`);
+        setItem("zoom", value);
+    }
+})
+
 
 var settingsContainerCSS = $(".settings-container").css("background");
 
