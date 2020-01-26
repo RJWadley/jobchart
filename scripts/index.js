@@ -65,10 +65,9 @@ slider.oninput = function() {
 }
 
 
-var settingsContainerCSS;
+var settingsContainerCSS = $(".settings-container").css("background");
 
 $("#zoomSlider").on("touchstart mousedown", function(){
-    settingsContainerCSS = $(".settings-container").css("background")
     $(".settings-container").css("background", "none");
     $("#zoomSlider").parent().parent().siblings().css("opacity", "0");
 })
