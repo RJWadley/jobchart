@@ -114,6 +114,12 @@ $("#settings").submit(function(e) {
 
 })
 
+function resizeChart() {
+    $("#chart").css("height", window.innerHeight)
+}
+
+$(window).resize(resizeChart());
+
 function initTable() {
     //clear table
     $("#chart > tbody").html("");
@@ -141,7 +147,8 @@ function initTable() {
         }
     })
 
-   flipTable();
+    flipTable();
+    resizeChart();
 
 }
 
