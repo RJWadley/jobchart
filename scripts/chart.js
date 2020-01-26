@@ -134,7 +134,14 @@ function initTable() {
         $('#chart tr').eq((i + dayCode) % people.length).append($('<td />', { text: dailyJobs[i] }))
     }
 
-   flipTable();
+    //remove blanks
+    $("#chart").find("td").each(function(){
+        if ($(this).html() == "") {
+            $(this).remove();
+        }
+    })
+
+   //flipTable();
 
 }
 
@@ -143,7 +150,12 @@ function initTable() {
 function flipTable() {
     //get dimensions (not including th)
     var row = $('#chart tr').length;
-    var col = Math.ceil($("table").find("tr td").length / row)
+    var col = 0;
+    $("table").find("tr").each(function(){
+        if ($(this).find("td").length > col) {
+            col = $(this).find("td").length;
+        }
+    })
 
     //clone the chart and clear the old one
     var chart = $("#chart");
