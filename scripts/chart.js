@@ -141,7 +141,7 @@ function initTable() {
         }
     })
 
-   //flipTable();
+   flipTable();
 
 }
 
