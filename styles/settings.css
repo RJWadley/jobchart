@@ -13,8 +13,8 @@
 
 
 .open-settings {
-  -webkit-transition: all 0.7s 0.3s ease-in-out;
-  transition: all 0.7s 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   -webkit-transform: translateY(100%);
   /* Chrome, Opera 15+, Safari 3.1+ */
   -ms-transform: translateY(100%);
@@ -37,8 +37,8 @@
 }
 
 .settings-section {
-    -webkit-transition: opacity 0s 0s ease-in-out;
-    transition: opacity 0s 0s ease-in-out;
+    -webkit-transition: opacity 0s ease-in-out;
+    transition: opacity 0s ease-in-out;
     margin: 10px;
     padding: 10px;
     background-color: white;
@@ -53,6 +53,7 @@
 
 .settings-button {
     background-color: deepskyblue;
+    color: black;
     border: 1px solid #005d7c;
     padding: 10px;
     border-radius: 10px;
@@ -70,8 +71,8 @@
 }
 
 .settings-button:active, #clear-all-data:active {
-    -webkit-transition: all 0s 0s ease-in-out;
-    transition: all 0s 0s ease-in-out;
+    -webkit-transition: all 0s ease-in-out;
+    transition: all 0s ease-in-out;
     box-shadow: none;
     -webkit-transform: translateY(5px);
     /* Chrome, Opera 15+, Safari 3.1+ */
@@ -82,6 +83,7 @@
 }
 
 textarea {
+    border: none;
     width: calc(100% - 20px);
     padding: 10px;
     padding-top: 13px;
