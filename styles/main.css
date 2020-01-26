@@ -25,3 +25,7 @@ th, td {
 h1 {
     margin: 0;
 }
+
+.done {
+    text-decoration: line-through;
+}

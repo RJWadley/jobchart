@@ -51,13 +51,17 @@ autosize($('textarea'))
 
 var slider = document.getElementById("zoomSlider");
 var output = document.getElementById("zoomLevel");
+
+//the process is different if already modified due to slider max value
 if (getItem("zoom") != null) {
     slider.value = getItem("zoom");
+    $("#chart").css("font-size", `${getItem("zoom")}%`);
+    output.innerHTML = getItem("zoom");
 } else {
     slider.value = 100;
+    $("#chart").css("font-size", `${slider.value}%`);
+    output.innerHTML = slider.value; // Display the default slider value
 }
-$("#chart").css("font-size", `${slider.value}%`);
-output.innerHTML = slider.value; // Display the default slider value
 
 // Update the current slider value
 slider.oninput = function() {
@@ -70,6 +74,8 @@ slider.oninput = function() {
 
 $("#zoomLevel").keypress(function(e){ return e.which != 13; });
 
+var zoomLevelTimeout;
+
 //update value when typed
 $("#zoomLevel").on("input",function(){
     var value = $("#zoomLevel").html();
@@ -77,6 +83,17 @@ $("#zoomLevel").on("input",function(){
         slider.value = value;
         $("#chart").css("font-size", `${value}%`);
         setItem("zoom", value);
+        
+        clearTimeout(zoomLevelTimeout);
+
+        $(".settings-container").css("background", "none");
+        $("#zoomSlider").parent().parent().siblings().css("opacity", "0");
+
+        zoomLevelTimeout = setTimeout(function(){
+            $(".settings-container").css("background", settingsContainerCSS);
+            $("#zoomSlider").parent().parent().siblings().css("opacity", "1");
+        }, 1000)
+
     }
 })
 
@@ -92,4 +109,3 @@ $("#zoomSlider").on("touchend mouseup", function(){
     $(".settings-container").css("background", settingsContainerCSS);
     $("#zoomSlider").parent().parent().siblings().css("opacity", "1");
 })
-

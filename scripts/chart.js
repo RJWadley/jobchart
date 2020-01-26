@@ -2,6 +2,9 @@ var chartData;
 var people = [];
 var dailyJobs = [];
 
+var today = new Date();
+today = Math.floor(today/8.64e7); //epoch time
+
 function setItem(name, value) {
     //stringify then compress
     var compressed = LZString.compressToUTF16(JSON.stringify(value));
@@ -130,8 +133,6 @@ function initTable() {
     }
 
     //calculate day code from 0 to people.length
-    var today = new Date();
-    today = Math.floor(today/8.64e7); //epoch time
     var dayCode = today % people.length;
     console.log("current day code is " + dayCode)
 
@@ -239,6 +240,44 @@ if (getItem("chartData") === null && confirm("populate with sample data?")) {
     saveData();
 }
 
-
 loadData();
 initTable();
+
+//checking off items
+$("td").click(function(){
+    $(this).toggleClass("done");
+
+    saveChecked();
+})
+
+var checkedArray;
+
+if (getItem("checkedArray") == null) {
+    checkedArray = [today];
+} else {
+    checkedArray = getItem("checkedArray");
+}
+
+function saveChecked() {
+    checkedArray = [today]; //reset array then loop through all
+    $("td").each(function(){
+        if ($(this).hasClass("done")) {
+            checkedArray.push(true)
+        } else {
+            checkedArray.push(false)
+        }
+    })
+
+    setItem("checkedArray", checkedArray)
+}
+
+//load checked
+if (checkedArray[0] == today && checkedArray.length > 1) {
+    $($("td").get().reverse()).each(function() { //iterate in reverse order
+        console.log(current)
+        var current = checkedArray.pop();
+        if (current == true) {
+            $(this).addClass("done");
+        }
+    });
+}
