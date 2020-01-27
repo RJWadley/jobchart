@@ -1,6 +1,7 @@
 var chartData;
 var people = [];
 var dailyJobs = [];
+var checkedArray;
 
 var today = new Date();
 today = Math.floor(today/8.64e7); //epoch time
@@ -10,7 +11,9 @@ function setItem(name, value) {
     var compressed = LZString.compressToUTF16(JSON.stringify(value));
     //store it
     localStorage.setItem(name,compressed);
-    console.log("data set: " + JSON.stringify(value));
+    console.groupCollapsed("Data Set");
+    console.log(JSON.stringify(value));
+    console.groupEnd();
 }
 
 function getItem(name) {
@@ -21,7 +24,9 @@ function getItem(name) {
 
     //decompress then parse then return
     var data = JSON.parse(LZString.decompressFromUTF16(localStorage.getItem(name)));
-    console.log("data got: " + JSON.stringify(data));
+    console.groupCollapsed("Data Got");
+    console.log(JSON.stringify(data));
+    console.groupEnd();
     return data;
 }
 
@@ -112,6 +117,7 @@ $("#settings").submit(function(e) {
     //save and reload
     saveData();
     initTable();
+    saveChecked()
 
     $(".settings-container").removeClass("open-settings");
 
@@ -151,6 +157,15 @@ function initTable() {
 
     flipTable();
     resizeChart();
+
+
+    //checking off items
+    $("td").click(function(){
+        $(this).toggleClass("done");
+
+        saveChecked();
+    })
+
 
 }
 
@@ -202,6 +217,7 @@ function getUrlVars() {
 }
 
 if (getUrlVars().sharing != undefined) {
+
     if (getItem("chartData") == null || confirm("Importing from link. (Data will be replaced, this cannot be undone). Continue?") == true) {
         
         alert("Imported from link. Following data was replaced: "+ JSON.stringify(getItem("chartData")));
@@ -243,15 +259,6 @@ if (getItem("chartData") === null && confirm("populate with sample data?")) {
 loadData();
 initTable();
 
-//checking off items
-$("td").click(function(){
-    $(this).toggleClass("done");
-
-    saveChecked();
-})
-
-var checkedArray;
-
 if (getItem("checkedArray") == null) {
     checkedArray = [today];
 } else {
@@ -271,13 +278,15 @@ function saveChecked() {
     setItem("checkedArray", checkedArray)
 }
 
-//load checked
-if (checkedArray[0] == today && checkedArray.length > 1) {
-    $($("td").get().reverse()).each(function() { //iterate in reverse order
-        console.log(current)
-        var current = checkedArray.pop();
-        if (current == true) {
-            $(this).addClass("done");
-        }
-    });
+    //load checked
+function loadChecked() {
+    if (checkedArray[0] == today && checkedArray.length > 1) {
+        $($("td").get().reverse()).each(function() { //iterate in reverse order
+            var current = checkedArray.pop();
+            if (current == true) {
+                $(this).addClass("done");
+            }
+        });
+    }
 }
+loadChecked();
