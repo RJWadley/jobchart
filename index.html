@@ -47,7 +47,7 @@
         <div class="settings-section">
             <h1>Zoom ― <span id="zoomLevel" contenteditable>100</span>%</h1>
             <div class="slidercontainer">
-                <input type="range" min="50" max="300" value="100" class="slider" id="zoomSlider">
+                <input aria-label="zoom" type="range" min="50" max="300" value="100" class="slider" id="zoomSlider">
                 <button class="settings-button settings-close">Close</button>
             </div>
         </div>
@@ -68,7 +68,7 @@
     </div>
 
 
-    <button class="settings-icon-container"><img class="settings-icon" src="images/gear.svg"></img></button>
+    <button class="settings-icon-container"><img class="settings-icon" src="images/gear.svg" alt="settings"></img></button>
 
     <table id="chart">
         <tbody>
@@ -77,7 +77,7 @@
 
 	<!-- SCRIPTS -->
 	<!-- JQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="libs/autosize.min.js"></script>
 	<script src="libs/lz-string.js"></script>
 	<script src="scripts/chart.js"></script>

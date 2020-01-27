@@ -36,7 +36,7 @@ function changeColors(){
             if (j == 0) {
                 thOffset = 360 / col / 3
             }
-            currentCell.css('background-color', 'hsl(' + (hue + i * (360 / col) - thOffset) + ', 100%, 65%)')
+            currentCell.css('background-color', 'hsl(' + (hue + i * (360 / col) - thOffset) + ', 100%, 70%)')
         }
     }
 
