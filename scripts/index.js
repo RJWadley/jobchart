@@ -1,4 +1,4 @@
-$("#settings-open").click(function(){
+$(".settings-icon-container").click(function(){
     $(".settings-container").addClass("open-settings");
 })
 
