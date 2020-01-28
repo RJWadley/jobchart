@@ -64,7 +64,7 @@ $("#link-share").click(function(){
 
     $(".sharable-link").remove();
 
-    $(".link-sharing").append($(`<br><a href=${link} class="sharable-link">${link}</a>`));
+    $(".link-sharing").append($(`<br class="sharable-link"><a href=${link} class="sharable-link">${link}</a>`));
 
 })
 

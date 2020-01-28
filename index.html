@@ -10,8 +10,15 @@
 	<link rel="stylesheet" href="styles/settings.css">
 	<link rel="stylesheet" href="styles/slider.css">
 	<!--link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Roboto|Material+Icons"-->
-	<!--scripts -->
-
+	<!-- scripts -->
+    <script>
+window.onerror = function() {
+  var message = /* get error messages and put them here */;
+  alert(message);
+  return true;
+};</script>
+    <!-- manifest -->
+    <link rel="manifest" href="manifest.json">
 
 	<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> font awesome if I ever need it -->
 
@@ -88,6 +95,7 @@
         </div>
         <div class="settings-section settings-half">
             <h1>Install</h1>
+            <button id="install">Install</button>
         </div><div class="settings-section settings-half">
             <h1>Feedback</h1>
         </div>
@@ -113,6 +121,25 @@
 	<script src="libs/lz-string.js"></script>
 	<script src="scripts/chart.js"></script>
     <script src="scripts/index.js"></script>
+
+    <!-- Service worker-->
+
+    <script>
+        if ("serviceWorker" in navigator) {
+        if (navigator.serviceWorker.controller) {
+            console.log("[PWA Builder] active service worker found, no need to register");
+        } else {
+            // Register the service worker
+            navigator.serviceWorker
+            .register("pwabuilder-sw.js", {
+                scope: "./"
+            })
+            .then(function (reg) {
+                console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
+            });
+        }
+        }
+    </script>
 
 
 </body></html>
