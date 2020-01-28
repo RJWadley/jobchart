@@ -77,6 +77,10 @@ function fromCache(request) {
 }
 
 function updateCache(request, response) {
+  if(!(request.url.indexOf('http') === 0)){
+    console.log("chrome extension")
+    return;
+  }
   return caches.open(CACHE).then(function (cache) {
     return cache.put(request, response);
   });
