@@ -1,0 +1,9 @@
+{
+  "name": "Job Chart",
+  "short_name": "Job Chart",
+  "theme_color": "#042069",
+  "background_color": "#042069",
+  "display": "standalone",
+  "Scope": "/",
+  "start_url": "/index.html?launcher=true"
+}
