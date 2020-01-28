@@ -1,0 +1,23 @@
+{
+  "name": "Job Chart",
+  "short_name": "Job Chart",
+  "theme_color": "#042069",
+  "background_color": "#042069",
+  "display": "standalone",
+  "Scope": "./",
+  "start_url": "/index.html?launcher=true",
+  "icons": [
+    {
+      "src": "images/manifest-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/manifest-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
