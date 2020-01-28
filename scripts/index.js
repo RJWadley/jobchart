@@ -109,3 +109,10 @@ $("#zoomSlider").on("touchend mouseup", function(){
     $(".settings-container").css("background", settingsContainerCSS);
     $("#zoomSlider").parent().parent().siblings().css("opacity", "1");
 })
+
+if (window.matchMedia('(display-mode: standalone)').matches) {
+    $(".settings-half").eq(0).remove();
+    $(".settings-half").removeClass("settings-half");
+}
+
+
