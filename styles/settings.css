@@ -43,6 +43,12 @@
     width: 30px;
 }
 
+@media all and (display-mode: standalone) {
+  .settings-icon {
+    top: 5px;
+    }
+}
+
 .settings-section {
     -webkit-transition: opacity 0s ease-in-out;
     transition: opacity 0s ease-in-out;
@@ -57,9 +63,19 @@
 .settings-half {
     margin: 0;
     margin-left: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     width: calc(50% - 15px - 20px);    
     display: inline-block;
+    vertical-align: top;    
+}
+
+@media only screen and (max-width: 500px) {
+    .settings-half {
+        margin: 10px;
+        width: auto;
+        display: block;
+    }
 }
 
 #settings {

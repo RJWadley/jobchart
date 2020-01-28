@@ -111,8 +111,8 @@ $("#zoomSlider").on("touchend mouseup", function(){
 })
 
 if (window.matchMedia('(display-mode: standalone)').matches) {
-    $(".settings-half").eq(0).remove();
-    $(".settings-half").removeClass("settings-half");
+    $(".install-half").eq(0).remove();
+    $(".install-half").removeClass("settings-half");
 }
 
 
