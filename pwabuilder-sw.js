@@ -3,6 +3,7 @@
 const CACHE = "pwabuilder-precache";
 const precacheFiles = [
   /* Add an array of files to precache for your app */
+  "./images/icons/*" //all pwa icons
 ];
 
 self.addEventListener("install", function (event) {
