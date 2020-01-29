@@ -53,8 +53,6 @@
 <link rel="apple-touch-startup-image" href="images/icons/apple-splash-640-1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 <link rel="apple-touch-startup-image" href="images/icons/apple-splash-1136-640.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
 
-
-
 <link rel="apple-touch-startup-image" href="images/icons/apple-splash-dark-2048-2732.png" media="(prefers-color-scheme: dark) and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 <link rel="apple-touch-startup-image" href="images/icons/apple-splash-dark-2732-2048.png" media="(prefers-color-scheme: dark) and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
 <link rel="apple-touch-startup-image" href="images/icons/apple-splash-dark-1668-2388.png" media="(prefers-color-scheme: dark) and (device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
@@ -142,8 +140,19 @@
 
     <table id="chart">
         <tbody>
+            <td>Loading...</td>
         </tbody>
     </table>
+
+    <div class="splash-container">
+        <div class="splash">
+            <h1>RJ's Job Chart</h1>
+            <p>A simple rotating job chart.</p>
+            <button class="splash-button">Show me how!</button>
+            <button class="splash-button">Import Data</button>
+            <button class="splash-button">I know what I'm doing!</button>
+        </div>
+    </div>
 
 	<!-- SCRIPTS -->
 	<!-- JQuery -->
@@ -151,6 +160,7 @@
 	<script src="libs/autosize.min.js"></script>
 	<script src="libs/lz-string.js"></script>
 	<script src="scripts/chart.js"></script>
+	<script src="scripts/index.js"></script>
 
     <!-- Service worker-->
 

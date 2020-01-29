@@ -57,7 +57,6 @@ function loadData() {
 }
 
 //link sharing
-
 $("#link-share").click(function(){
 
     var link = (window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData)));
@@ -125,7 +124,7 @@ $("#settings").submit(function(e) {
 
 //reload the chart when the height changes (for mobile)
 function resizeChart() {
-    $("#chart").css("height", window.innerHeight)
+    $("#chart").css("height", window.innerHeight + 1)
 }
 
 window.onresize = resizeChart;
@@ -247,74 +246,6 @@ if (getUrlVars().sharing != undefined) {
 
 }
 
-//if when the site is loaded no data exists populate with sample data
-if (getItem("chartData") === null && confirm("populate with sample data?")) {
-    people = ["steve", "john", "sue", "mary jane"]
-    dailyJobs = ["wash dishes", "dry dishes", "clear off counters", "sweep floor",
-        "mop floor", "set table", "clean living room", "clean bathroom",
-        "load dishwasher", "empty dishwasher", "vacuum living room", "water the plant",];
-    saveData();
-}
-
-loadData();
-initTable();
-
-if (getItem("checkedArray") == null) {
-    checkedArray = [today];
-} else {
-    checkedArray = getItem("checkedArray");
-}
-
-function saveChecked() {
-    checkedArray = [today]; //reset array then loop through all
-    $("td").each(function(){
-        if ($(this).hasClass("done")) {
-            checkedArray.push(true)
-        } else {
-            checkedArray.push(false)
-        }
-    })
-
-    setItem("checkedArray", checkedArray)
-}
-
-    //load checked
-function loadChecked() {
-    if (checkedArray[0] == today && checkedArray.length > 1) {
-        $($("td").get().reverse()).each(function() { //iterate in reverse order
-            var current = checkedArray.pop();
-            if (current == true) {
-                $(this).addClass("done");
-            }
-        });
-    }
-}
-loadChecked();
-
-
-
-
-
-
-$(".settings-icon-container").click(function(){
-    $(".settings-container").addClass("open-settings");
-})
-
-$(".settings-close").click(function(){
-    $(".settings-container").removeClass("open-settings");
-    loadData();
-})
-
-$("#clear-all-data").click(function(){
-    if (confirm("ARE YOU SURE YOU WANT TO CLEAR ALL DATA? THIS CANNOT BE UNDONE?") == true &&
-        prompt("Type DELETE to confirm") === "DELETE") {
-            localStorage.clear();
-            alert("deleted");
-            location.reload();
-        } else {
-            alert("not deleted");
-        }
-})
 
 var hue = 30
 
@@ -342,8 +273,96 @@ function changeColors(){
     if (hue > 360) {hue = 0}
 }
 
+
+//if when the site is loaded data exists remove splash
+if (getItem("chartData") === null) {
+    $(".splash-container").css("display","block");
+}
+
+$(".splash-button").eq(0).click( function() {
+    people = ["steve", "john", "sue", "mary jane"]
+    dailyJobs = ["wash dishes", "dry dishes", "clear off counters", "sweep floor",
+        "mop floor", "set table", "clean living room", "clean bathroom",
+        "load dishwasher", "empty dishwasher", "vacuum living room", "water the plant",];
+    saveData();
+    loadData();
+    $(".splash-container").remove();
+    setTimeout(function(){
+        var demoCount = 1;
+        setInterval(function(){
+            today++;
+            initTable();
+            $("th").eq(0).html("Steve<br><br>Current day: " + demoCount++);
+            $("th").eq(1).html("John<br><br>Click items to cross them off. ");
+            $("th").eq(2).html("Sue<br><br>Crossed off items reset each day. ");
+            $("th").last().html($("<p>Mary Jane</p><br /><button onclick='location.reload();'>Click to End Demo</button>"));
+
+            changeColors();
+        },1000)
+    },100)
+} )
+
+try {
+    loadData();
+    initTable();
+} catch {
+    console.log("No data to load.")
+}
+
 changeColors();
 var colors = setInterval(changeColors, 1000);
+
+if (getItem("checkedArray") == null) {
+    checkedArray = [today];
+} else {
+    checkedArray = getItem("checkedArray");
+}
+
+function saveChecked() {
+    checkedArray = [today]; //reset array then loop through all
+    $("td").each(function() {
+        if ($(this).hasClass("done")) {
+            checkedArray.push(true)
+        } else {
+            checkedArray.push(false)
+        }
+    })
+
+    setItem("checkedArray", checkedArray)
+}
+
+    //load checked
+function loadChecked() {
+    if (checkedArray[0] == today && checkedArray.length > 1) {
+        $($("td").get().reverse()).each(function() { //iterate in reverse order
+            var current = checkedArray.pop();
+            if (current == true) {
+                $(this).addClass("done");
+            }
+        });
+    }
+}
+loadChecked();
+
+$(".settings-icon-container").click(function(){
+    $(".settings-container").addClass("open-settings");
+})
+
+$(".settings-close").click(function(){
+    $(".settings-container").removeClass("open-settings");
+    loadData();
+})
+
+$("#clear-all-data").click(function(){
+    if (confirm("ARE YOU SURE YOU WANT TO CLEAR ALL DATA? THIS CANNOT BE UNDONE?") == true &&
+        prompt("Type DELETE to confirm") === "DELETE") {
+            localStorage.clear();
+            alert("deleted");
+            location.reload();
+        } else {
+            alert("not deleted");
+        }
+})
 
 autosize($('textarea'))
 

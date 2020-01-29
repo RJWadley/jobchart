@@ -35,3 +35,32 @@ h1 {
 .done {
     text-decoration: line-through;
 }
+
+.splash-container {
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #042069;
+    z-index: 200;
+}
+
+.splash {
+    background-color: whitesmoke;
+    position: absolute;
+    width: 80%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    text-align: center;
+}
+
+.splash-button {
+    padding: 15px;
+    background-color: #99ccff;
+    border: none;
+    margin: 5px;
+}
