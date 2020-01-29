@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head>
+	<meta charset="utf-8">
+
+	<title>Chart Editor</title>
+	<meta name="description" content="A visual editor for the job chart">
+	<meta name="author" content="Robert Wadley">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- stylesheets -->
+	<link rel="stylesheet" href="editor.css">
+	<!--link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Roboto|Material+Icons"-->
+	<!-- scripts -->
+
+	<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> font awesome if I ever need it -->
+
+
+	<!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+
+<link rel="icon" type="image/png" sizes="196x196" href="images/icons/favicon-196.png">
+
+</head>
+
+<body>
+
+    <button id="import">Import</button><button id="export">Export</button>
+    <button id="addCol">Add Column</button><button id="addRow">Add Row</button>
+    <br>
+    <button id="rmCol">Remove Column</button><button id="rmRow">Remove Row</button>
+
+    <table>
+    <tr>
+        <td contenteditable>
+        Type here
+        </td>
+        <td contenteditable>
+        </td>
+        <td contenteditable>
+        </td>
+    </tr>
+    <tr>
+        <td contenteditable>
+        </td>
+        <td contenteditable>
+        </td>
+        <td contenteditable>
+        </td>
+    </tr>
+    <tr>
+        <td contenteditable>
+        </td>
+        <td contenteditable>
+        </td>
+        <td contenteditable>
+        </td>
+    </tr>
+    </table>
+
+
+	<!-- SCRIPTS -->
+	<!-- JQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="editor.js"></script>
+
+</body></html>
