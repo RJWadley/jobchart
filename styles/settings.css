@@ -113,6 +113,18 @@
     /* Firefox 16+, IE 10+, Opera */
 }
 
+.settings-button:disabled,
+.settings-button[disabled]{
+    background-color: lightgray;
+    box-shadow: none;
+    -webkit-transform: translateY(5px);
+    /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateY(5px);
+    /* IE 9 */
+    transform: translateY(5px);
+    /* Firefox 16+, IE 10+, Opera */
+}
+
 textarea {
     border: 1px solid gray;
     width: calc(100% - 20px);

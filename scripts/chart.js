@@ -395,7 +395,7 @@ $("#zoomLevel").on("input",function(){
     }
 })
 
-
+//make everything transparent on zoom slider 
 var settingsContainerCSS = $(".settings-container").css("background");
 
 $("#zoomSlider").on("touchstart mousedown", function(){
@@ -408,10 +408,35 @@ $("#zoomSlider").on("touchend mouseup", function(){
     $("#zoomSlider").parent().parent().siblings().css("opacity", "1");
 })
 
+//standalone pwa detectors and stylers
 if (window.matchMedia('(display-mode: standalone)').matches) {
     $(".install-half").css("margin-top","0");
     $(".install-half").eq(0).remove();
     $(".install-half").removeClass("settings-half");
 } else {
-    $(".install-half").last().next().css("margin-top","0");
+    $(".install-half").last().next().css("margin-top","0"); //if not pwa fix a padding thing
 }
+
+//pwa prompt
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  // Update UI to notify the user they can add to home screen
+  $("#install").attr("disabled", false);
+
+  $("#install").click(function(){
+    // hide our user interface that shows our A2HS button
+    $("#install").replace($("<p>reload and try again</p>"))
+    // Show the prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        deferredPrompt = null;
+      });
+  });
+});
