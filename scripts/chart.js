@@ -409,8 +409,9 @@ $("#zoomSlider").on("touchend mouseup", function(){
 })
 
 if (window.matchMedia('(display-mode: standalone)').matches) {
+    $(".install-half").css("margin-top","0");
     $(".install-half").eq(0).remove();
     $(".install-half").removeClass("settings-half");
+} else {
+    $(".install-half").last().next().css("margin-top","0");
 }
-
-$(".install-half").last().next().css("margin-top","0");
