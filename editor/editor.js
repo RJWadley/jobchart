@@ -36,8 +36,11 @@ function importData(pasted){
         }
         
     } catch {
-        alert("error")
-        location.reload();
+        var loc = window.location.pathname;
+        var dir = loc.substring(0, loc.lastIndexOf('/'));
+        var back = dir + "/index.html";
+        window.location.replace(back);
+
     }
 }
 
