@@ -411,7 +411,8 @@ $("#zoomSlider").on("touchend mouseup", function(){
 //standalone pwa detectors and stylers
 if (window.matchMedia('(display-mode: standalone)').matches) {
     $(".install-half").css("margin-top","0");
-    $(".install-half").eq(0).remove();
+    $(".install-ios").remove();
+    $(".install-non-ios").remove();
     $(".install-half").removeClass("settings-half");
 } else {
     $(".install-half").last().next().css("margin-top","0"); //if not pwa fix a padding thing
