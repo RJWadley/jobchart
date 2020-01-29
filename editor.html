@@ -6,7 +6,7 @@
 	<meta name="author" content="Robert Wadley">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- stylesheets -->
-	<link rel="stylesheet" href="editor.css">
+	<link rel="stylesheet" href="./editor/editor.css">
 	<!--link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Roboto|Material+Icons"-->
 	<!-- scripts -->
 
@@ -23,11 +23,12 @@
 
 <body>
 
-    <button id="import">Import</button><button id="export">Export</button>
+    <a href="./index.html">Close without saving</a>
+    <button id="import">Import</button><button id="export">Export to Job Chart</button>
     <button id="addCol">Add Column</button><button id="addRow">Add Row</button>
     <br>
     <button id="rmCol">Remove Column</button><button id="rmRow">Remove Row</button>
-
+    
     <table>
     <tr>
         <td contenteditable>
@@ -60,6 +61,7 @@
 	<!-- SCRIPTS -->
 	<!-- JQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="editor.js"></script>
+	<script src="./libs/lz-string.js"></script>
+	<script src="./editor/editor.js"></script>
 
 </body></html>

@@ -87,6 +87,7 @@ $("#import").click(function(){
         $('#people').val(people);
         $('#dailyJobs').val(dailyJobs);
 
+        saveData();
         initTable();
     } catch {
         alert("invalid code");
@@ -469,3 +470,13 @@ if (isIOS) {
     $(".install-non-ios").remove();
     $(".install-ios").css("display", "inline-block");
 }
+
+$(".open-visual-editor").click(function(){
+    var loc = window.location.pathname;
+    var dir = loc.substring(0, loc.lastIndexOf('/'));
+
+    var editor = dir + "/editor.html?edit=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData));
+
+    window.location.replace(editor);
+    
+})
