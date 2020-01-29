@@ -426,7 +426,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
   $("#install").click(function(){
     // hide our user interface that shows our A2HS button
-    $("#install").replace($("<p>reload and try again</p>"))
+    $("#install").replaceWith($("<p>reload and try again</p>"))
     // Show the prompt
     deferredPrompt.prompt();
     // Wait for the user to respond to the prompt
