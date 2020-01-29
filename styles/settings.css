@@ -1,7 +1,7 @@
 
 .settings-container {
   position: fixed;
-  overflow-y: scroll;
+  overflow-y: auto;
   top: -100%;
   left: 0;
   padding: 20px;
