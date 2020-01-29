@@ -115,4 +115,4 @@ if (window.matchMedia('(display-mode: standalone)').matches) {
     $(".install-half").removeClass("settings-half");
 }
 
-
+$(".install-half").last().next().css("margin-top","0");
