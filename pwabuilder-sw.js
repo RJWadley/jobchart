@@ -81,6 +81,8 @@ function updateCache(request, response) {
     return;
   }
   return caches.open(CACHE).then(function (cache) {
-    return cache.put(request, response);
+    return fetch(request).then(function (response) {
+      return cache.put(request, response);
+    });
   });
 }
