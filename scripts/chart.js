@@ -4,6 +4,7 @@ var dailyJobs = [];
 var checkedArray;
 
 var today = new Date();
+today = new Date(today.toDateString());
 today = Math.floor(today/8.64e7); //epoch time
 
 function setItem(name, value) {
@@ -311,8 +312,8 @@ $(".splash-button").eq(0).click( function() {
             today++;
             initTable();
             $("th").eq(0).html("Steve<br><br>Current day: " + demoCount++);
-            $("th").eq(1).html("John<br><br>Click items to cross them off. ");
-            $("th").eq(2).html("Sue<br><br>Crossed off items reset each day. ");
+            $("th").eq(1).html("John");
+            $("th").eq(2).html("Sue");
             $("th").last().html($("<p>Mary Jane</p><br /><button onclick='location.reload();'>Click to End Demo</button>"));
 
             changeColors();
