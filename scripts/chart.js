@@ -128,9 +128,24 @@ function resizeChart() {
     $("#chart").css("height", window.innerHeight)
 }
 
-window.addEventListener('resize', _.throttle(() => {
-  resizeChart();
-}, 200));
+(function($) {
+
+    var resizeTimer; // Set resizeTimer to empty so it resets on page load
+
+    function resizeFunction() {
+        resizeChart();
+        console.log("wee")
+    };
+
+    // On resize, run the function and reset the timeout
+    // 250 is the delay in milliseconds. Change as you see fit.
+    $(window).resize(function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resizeFunction, 250);
+    });
+
+})(jQuery);
+
 
 function initTable() {
     //clear table
