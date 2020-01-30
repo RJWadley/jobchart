@@ -305,20 +305,8 @@ $(".splash-button").eq(0).click( function() {
         "load dishwasher", "empty dishwasher", "vacuum living room", "water the plant",];
     saveData();
     loadData();
+    initTable();
     $(".splash-container").remove();
-    setTimeout(function(){
-        var demoCount = 1;
-        setInterval(function(){
-            today++;
-            initTable();
-            $("th").eq(0).html("Steve<br><br>Current day: " + demoCount++);
-            $("th").eq(1).html("John");
-            $("th").eq(2).html("Sue");
-            $("th").last().html($("<p>Mary Jane</p><br /><button onclick='location.reload();'>Click to End Demo</button>"));
-
-            changeColors();
-        },1000)
-    },100)
 } )
 
 try {
