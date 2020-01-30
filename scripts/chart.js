@@ -128,7 +128,9 @@ function resizeChart() {
     $("#chart").css("height", window.innerHeight + 1)
 }
 
-window.onresize = resizeChart;
+window.addEventListener('resize', _.throttle(() => {
+  resizeChart();
+}, 200));
 
 function initTable() {
     //clear table
