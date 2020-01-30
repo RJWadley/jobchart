@@ -21,13 +21,21 @@ button {
 
 a {
     color: black;
-    display: block;
-    width: calc(100% - 30px);
+    width: calc(100% - 40px);
     font: 400 13.3333px Arial;
     padding: 10px;
     background-color: lightgray;
     text-decoration: none;
-    margin: 5px;
-    margin-top: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+body {
+    padding-bottom: 50px;
+}
+
+p {
     text-align: center;
 }
