@@ -135,7 +135,6 @@ function resizeChart() {
 
     function resizeFunction() {
         resizeChart();
-        console.log("wee")
     };
 
     // On resize, run the function and reset the timeout
@@ -470,7 +469,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 let isIOS = (/iPad|iPhone|iPod/.test(navigator.platform) ||
 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
-!window.MSStream
+!window.MSStream;
 
 if (isIOS) {
     $(".install-non-ios").remove();
