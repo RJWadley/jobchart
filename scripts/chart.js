@@ -60,7 +60,11 @@ function loadData() {
 //link sharing
 $("#link-share").click(function(){
 
-    var link = (window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData)));
+    if (window.location.href.indexOf('?') > 0) {
+        var link = (window.location.href.toString() + "&sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData)));
+    } else {
+        var link = (window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData)));
+    }
 
     $(".sharable-link").remove();
 
