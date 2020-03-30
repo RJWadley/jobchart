@@ -263,10 +263,8 @@ function getURLvars() {
 
 if (getURLvars().sharing != undefined) {
 
-    if (getItem("chartData") == null || confirm("Importing from link. (Data will be replaced, this cannot be undone). Continue?") == true) {
+    if (getItem("chartData") == null || confirm("Importing and replacing data. Continue?") == true) {
         
-        alert("Imported from link. Following data will be replaced: "+ JSON.stringify(getItem("chartData")));
-
         let backup;
 
         try {

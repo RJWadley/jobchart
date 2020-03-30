@@ -1,5 +1,5 @@
 html * {
-    font-family: roboto, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     -webkit-transition: all 0.2s ease-in-out, font-size 0s ease-in-out;
     transition: all 0.2s ease-in-out, font-size 0s ease-in-out;
 }
