@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="styles/settings.css">
 	<link rel="stylesheet" href="styles/slider.css">
 	<link rel="stylesheet" href="libs/bootstrap-tour-standalone.min.css">
-	<!--link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Roboto|Material+Icons"-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Roboto|Montserrat|Material+Icons"
 	<!-- scripts -->
 	<!-- manifest -->
 	<link rel="manifest" href="manifest.webmanifest">
@@ -80,7 +80,7 @@
 <body>
 
     <div class="settings-container">
-        <div class="settings-section">
+        <div class="settings-section settings-wide">
             <h1>Chart Data</h1>
             <form id="settings" accept-charset="UTF-8" autocomplete="off">
                 <label for="people">People</label><br>
@@ -88,8 +88,12 @@
                 <p class="helper-text">Enter names seperated by commas</p>
 
                 <label for="dailyJobs">Daily Jobs</label><br>
-                <textarea id="dailyJobs" name="dailyJobs" type="text" required></textarea> <br>
+                <textarea id="dailyJobs" name="dailyJobs" type="text"></textarea> <br>
                 <p class="helper-text">Enter daily jobs seperated by commas</p>
+
+                <label for="weeklyJobs">Weekly Jobs</label><br>
+                <textarea id="weeklyJobs" name="weeklyJobs" type="text"></textarea> <br>
+                <p class="helper-text">Enter weekly jobs seperated by commas</p>
 
                 <button type="submit" class="settings-button">Save</button>
                 <button type="button" class="settings-close settings-button">Close Without Saving</button>
@@ -97,37 +101,45 @@
 
             </form>
         </div>
-        <div class="settings-section">
+        <div class="settings-section settings-wide">
             <h1>Zoom ― <span id="zoomLevel" contenteditable>100</span>%</h1>
             <div class="slidercontainer">
                 <input aria-label="zoom" type="range" min="50" max="300" value="100" class="slider" id="zoomSlider">
                 <button class="settings-button settings-close">Close</button>
             </div>
-        </div><div class="link-sharing settings-section settings-half">
+        </div>
+        <div class="link-sharing settings-section settings-tall">
             <h1>Link Sharing</h1>
             <button id="link-share" class="settings-button">Get Sharable Link</button>
-        </div><div class="settings-section settings-half">
+        </div>
+        <div class="settings-section">
             <h1>Backup, Export, and Import</h1>
             <button id="export" class="settings-button">Backup or Export</button>
             <button id="import" class="settings-button">Import</button>
         </div>
-        <div class="settings-section settings-half install-half install-non-ios">
+        <div class="settings-section install-non-ios">
             <h1>Install Web App</h1>
             <p>It's easy to install this site as an app. Simply click the button below or install from the browser menu.</p>
             <button class="settings-button" id="install" disabled="true">Install App</button>
-        </div><div class="settings-section settings-half install-half install-ios" style="display: none">
+        </div>
+        <div class="settings-section install-ios" style="display: none">
             <h1>Install Web App</h1>
             <p>It's easy to install this site as an app. Just click share <img src="https://developer.apple.com/design/human-interface-guidelines/ios/images/icons/navigation_bar_toobar_icons/Navigation_Action.png" width="19" height="27" alt="Action navigation bar and tab bar icon">, then select "Add to Home Screen"</p>
-        </div><div class="settings-section settings-half install-half">
+        </div>
+        <div class="settings-section">
             <h1>Feedback</h1>
             <p>Send feedback or report a bug</p>
             <a class="settings-button" style="text-decoration: none" target="_blank" href="https://github.com/RJWadley/jobchart/issues">Send Feedback</a>
         </div>
         <div class="settings-section">
+            <h1>Retake Tour</h1>
+            <button onclick="tour.init();tour.restart()" class="settings-close settings-button">Start Tour</button>
+        </div>
+        <div class="settings-section">
             <h1>Reset</h1>
             <button id="clear-all-data" class="settings-button">Clear all Data</button>
         </div>
-        <button class="settings-close settings-section settings-button">Exit Settings</button>
+        <button class="settings-close settings-section settings-button settings-wide">Exit Settings</button>
     </div>
 
 

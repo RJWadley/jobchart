@@ -1,4 +1,3 @@
-
 $(".splash-button").eq(1).click( function() {
     $(".splash-container").remove();
     $(".settings-container").addClass("open-settings");
@@ -13,17 +12,15 @@ $(".splash-button").eq(2).click( function() {
 
 //auto reload at midnight
 
-function autoRefresh() {
-    var refreshDate = new Date();
-    thisHour = refreshDate.getHours();
-    thisMinute = refreshDate.getMinutes();
-    thisSecond = refreshDate.getSeconds();
-    setTimeout("autoRefresh()",55000); // in milliseconds = 55min
-
-    if(thisHour == 12 && thisMinute > 0 && thisSecond > 0 && thisMinute < 1 &&
-    thisSecond < 60) {
-        location.reload();
-    }
+function msUntilMidnight() {
+    var midnight = new Date();
+    midnight.setHours( 24 );
+    midnight.setMinutes( 0 );
+    midnight.setSeconds( 0 );
+    midnight.setMilliseconds( 0 );
+    return ( midnight.getTime() - new Date().getTime() );
 }
 
-autoRefresh();
+setTimeout(() => {
+    location.reload();
+}, (msUntilMidnight()));
