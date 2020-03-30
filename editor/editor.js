@@ -29,18 +29,26 @@ function importData(data){
             $("tr").append($(`<td contenteditable>${data.people[i]}</td>`))
         }
             
-        for (let i = 0; i < data.dailyJobs.length; i++) {
+        for (let i = 0; i < (Math.ceil(data.dailyJobs.length/data.people.length)*data.people.length); i++) {
             if (i % data.people.length == 0) {
                 $("table").eq(1).append("<tr></tr>");
             }
-            $("tr").last().append($(`<td contenteditable>${data.dailyJobs[i]}</td>`));
+            if (data.dailyJobs[i] === undefined) {
+                $("tr").last().append($("<td />"));
+            } else {
+                $("tr").last().append($(`<td contenteditable>${data.dailyJobs[i]}</td>`));
+            }
         }
 
-        for (let i = 0; i < data.weeklyJobs.length; i++) {
+        for (let i = 0; i < (Math.ceil(data.weeklyJobs.length/data.people.length)*data.people.length); i++) {
             if (i % data.people.length == 0) {
                 $("table").eq(2).append("<tr></tr>");
             }
-            $("tr").last().append($(`<td contenteditable>${data.weeklyJobs[i]}</td>`));
+            if (data.weeklyJobs[i] === undefined) {
+                $("tr").last().append($("<td />"));
+            } else {
+                $("tr").last().append($(`<td contenteditable>${data.weeklyJobs[i]}</td>`));
+            }
         }
         
     } catch(error) {
@@ -95,3 +103,11 @@ if (edit != undefined) {
 }
 
 $('td').on('focus', function () { setTimeout(() => {document.execCommand('selectAll', false, null);}, 10);});
+
+$('#abort').click(function(){
+    if (confirm("Close without Saving?") == true) {
+        let loc = window.location.pathname;
+        let dir = loc.substring(0, loc.lastIndexOf('/'));
+        window.location.replace(dir + "/index.html");
+    }
+})
