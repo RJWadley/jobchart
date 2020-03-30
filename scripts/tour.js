@@ -1,10 +1,12 @@
 // Instance the tour
 var tour = new Tour({
   backdrop: true,
+  debug: true,
   onStart: function(){
         $("tr").first().attr("id", "firstheader");
         $("tr").eq(1).attr("id", "secondrow");
-        $("td").eq(3).attr("id", "lastcol");
+        $("tr").last().attr("id", "lastrow");
+        $("tr").eq(1).children().last().attr("id", "lastcol");
         $(".settings-button").eq(0).attr("id", "firstbutton");
         $(".settings-button").eq(2).attr("id", "thirdbutton");
         $(".settings-section").eq(1).attr("id", "s2");
@@ -46,10 +48,25 @@ var tour = new Tour({
     placement: "bottom"
   },
   {
+    element: "#lastrow",
+    title: "Weekly Jobs",
+    content: "Here are some example weekly chores I've put on your job chart.",
+    placement: "top"
+  },
+  {
+    element: "#lastrow",
+    title: "Rotating",
+    content: "Every Sunday at midnight, each of these tasks will rotate to the right one space.",
+    placement: "top"
+  },
+  {
     element: ".settings-icon",
     title: "Settings",
     content: "Click this gear to open settings.",
-    onNext: function(){$(".settings-container").addClass("open-settings");}
+    onNext: function(){
+        $(".settings-container").addClass("open-settings");
+        document.getElementById("people").scrollIntoView();
+    }
   },
   {
     element: "#people",
