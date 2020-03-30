@@ -88,9 +88,12 @@ $("#export").click(function(){
 //import
 $("#import").click(function(){
     let pasted = prompt("Paste the code you copied:");
+
+    let backup;
+
     try {
         pasted = JSON.parse(pasted);
-        let backup = chartData;
+        backup = chartData;
         chartData = pasted;
 
         people = chartData.people;
@@ -264,9 +267,11 @@ if (getURLvars().sharing != undefined) {
         
         alert("Imported from link. Following data will be replaced: "+ JSON.stringify(getItem("chartData")));
 
+        let backup;
+
         try {
             fromLink = JSON.parse(LZString.decompressFromEncodedURIComponent(getURLvars().sharing));
-            let backup = getItem("chartData");
+            backup = getItem("chartData");
             setItem("chartData", fromLink)
 
             people = fromLink.people;

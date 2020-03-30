@@ -1,90 +1,97 @@
 $("#addCol").click(function(){
-  $("tr").append($("<td contenteditable></td>"));
+    $("tr").append($("<td contenteditable></td>"));
+    $('td').on('focus', function () { setTimeout(() => {document.execCommand('selectAll', false, null);}, 10);});
 })
 
-$("#addRow").click(function(){
-  $("table").append($("tr").last().clone());
+$(".addRow").click(function(){
+    $(this).prev().append($("table").first().children().first().clone());
+    $('td').on('focus', function () { setTimeout(() => {document.execCommand('selectAll', false, null);}, 10);});
 })
 
 $("#rmCol").click(function(){
-  $("tr").each(function(){
-    $(this).children().last().remove();
-  });
-})
-$("#rmRow").click(function(){
-  if ($("tr").length > 1) {
-    $("tr").last().remove();
-  }
+    $("tr").each(function(){
+        $(this).children().last().remove();
+    })
 })
 
-function importData(pasted){
-        try {
-        pasted = JSON.parse(pasted);
+$(".rmRow").click(function(){
+    $(this).prev().prev().children().last().remove();
+})
+
+function importData(data){
+    try {
+        data = JSON.parse(data);
         
         $("table").children().remove()
-        $("table").append("<tr></tr>");
+        $("table").first().append("<tr></tr>");
         
-        for (var i = 0; i < pasted.people.length; i++) {
-        $("tr").append($(`<td contenteditable>${pasted.people[i]}</td>`))
+        for (let i = 0; i < data.people.length; i++) {
+            $("tr").append($(`<td contenteditable>${data.people[i]}</td>`))
         }
             
-        for (var i = 0; i < pasted.dailyJobs.length; i++) {
-        if (i % pasted.people.length == 0) {
-            $("table").append("<tr></tr>");
+        for (let i = 0; i < data.dailyJobs.length; i++) {
+            if (i % data.people.length == 0) {
+                $("table").eq(1).append("<tr></tr>");
+            }
+            $("tr").last().append($(`<td contenteditable>${data.dailyJobs[i]}</td>`));
         }
-        $("tr").last().append($(`<td contenteditable>${pasted.dailyJobs[i]}</td>`));
+
+        for (let i = 0; i < data.weeklyJobs.length; i++) {
+            if (i % data.people.length == 0) {
+                $("table").eq(2).append("<tr></tr>");
+            }
+            $("tr").last().append($(`<td contenteditable>${data.weeklyJobs[i]}</td>`));
         }
         
-    } catch {
-        var loc = window.location.pathname;
-        var dir = loc.substring(0, loc.lastIndexOf('/'));
-        var back = dir + "/index.html";
-        window.location.replace(back);
-
+    } catch(error) {
+        alert("There was an error...");
+        console.log(error);
     }
 }
 
-$("#import").click(function(){importData(prompt("Paste the code you copied from the settings menu:"))})
-
 $("#export").click(function(){
-    var people = [];
+    
+    let people = [];
+    
     $("tr").first().find("td").each(function(){
         people.push($(this).text());
     });
     
-    var firstRow = $("tr").first();
-    
-    $("tr").first().remove();
-    
-    var dailyJobs = [];
-    $("table").find("td").each(function(){
+    let dailyJobs = [];
+
+    $("table").eq(1).find("td").each(function(){
         dailyJobs.push($(this).text());
     })
-    
-    var final = JSON.stringify({people,dailyJobs});
-    
-    var loc = window.location.pathname;
-    var dir = loc.substring(0, loc.lastIndexOf('/'));
 
-    var editor = dir + "/index.html?sharing=" + LZString.compressToEncodedURIComponent(final);
+    let weeklyJobs = [];
+    $("table").eq(2).find("td").each(function(){
+        weeklyJobs.push($(this).text());
+    })
+    
+    let final = JSON.stringify({people,dailyJobs,weeklyJobs});
+    
+    let loc = window.location.pathname;
+    let dir = loc.substring(0, loc.lastIndexOf('/'));
+
+    let editor = dir + "/index.html?sharing=" + LZString.compressToEncodedURIComponent(final);
 
     window.location.replace(editor);
-    
-    $("tr").first().before(firstRow);
   
 })
 
 function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    let vars = {};
+    let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
         vars[key] = value;
     });
     return vars;
 }
 
-var edit = getUrlVars().edit;
+let edit = getUrlVars().edit;
 
 if (edit != undefined) {
     edit = LZString.decompressFromEncodedURIComponent(edit);
     importData(edit)
 }
+
+$('td').on('focus', function () { setTimeout(() => {document.execCommand('selectAll', false, null);}, 10);});

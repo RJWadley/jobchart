@@ -39,3 +39,9 @@ body {
 p {
     text-align: center;
 }
+
+h1 {
+    font-size: 2em;
+    font-family: sans-serif;
+    margin-bottom: 0;
+}
