@@ -1,15 +1,18 @@
-var chartData;
-var people = [];
-var dailyJobs = [];
-var checkedArray;
+let chartData;
+let people = [];
+let dailyJobs = [];
+let weeklyJobs = [];
+let checkedArray;
 
-var today = new Date();
+let today = new Date();
 today = new Date(today.toDateString());
 today = Math.floor(today/8.64e7); //epoch time
 
+let week = Math.floor((today + 3)/7); //so that it rotates on sunday
+
 function setItem(name, value) {
     //stringify then compress
-    var compressed = LZString.compressToUTF16(JSON.stringify(value));
+    let compressed = LZString.compressToUTF16(JSON.stringify(value));
     //store it
     localStorage.setItem(name,compressed);
     console.groupCollapsed("Data Set");
@@ -24,7 +27,7 @@ function getItem(name) {
     }
 
     //decompress then parse then return
-    var data = JSON.parse(LZString.decompressFromUTF16(localStorage.getItem(name)));
+    let data = JSON.parse(LZString.decompressFromUTF16(localStorage.getItem(name)));
     console.groupCollapsed("Data Got");
     console.log(JSON.stringify(data));
     console.groupEnd();
@@ -36,6 +39,7 @@ function saveData() {
     chartData = {
         "people": people,
         "dailyJobs": dailyJobs,
+        "weeklyJobs": weeklyJobs,
     }
 
     setItem("chartData", chartData);
@@ -51,19 +55,23 @@ function loadData() {
 
     people = chartData.people;
     dailyJobs = chartData.dailyJobs;
+    weeklyJobs = chartData.weeklyJobs;
 
     //update text boxes in settings
     $('#people').val(people);
     $('#dailyJobs').val(dailyJobs);
+    $('#weeklyJobs').val(weeklyJobs);
 }
 
 //link sharing
 $("#link-share").click(function(){
 
+    let link;
+
     if (window.location.href.indexOf('?') > 0) {
-        var link = (window.location.href.toString() + "&sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData)));
+        link = (window.location.href.toString() + "&sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData)));
     } else {
-        var link = (window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData)));
+        link = (window.location.href.toString() + "?sharing=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData)));
     }
 
     $(".sharable-link").remove();
@@ -79,18 +87,20 @@ $("#export").click(function(){
 
 //import
 $("#import").click(function(){
-    var pasted = prompt("Paste the code you copied:");
+    let pasted = prompt("Paste the code you copied:");
     try {
         pasted = JSON.parse(pasted);
-        var backup = chartData;
+        let backup = chartData;
         chartData = pasted;
 
         people = chartData.people;
         dailyJobs = chartData.dailyJobs;
+        weeklyJobs = chartData.weeklyJobs;
 
         //update text boxes in settings
         $('#people').val(people);
         $('#dailyJobs').val(dailyJobs);
+        $('#weeklyJobs').val(weeklyJobs);
 
         saveData();
         initTable();
@@ -101,10 +111,12 @@ $("#import").click(function(){
 
         people = chartData.people;
         dailyJobs = chartData.dailyJobs;
+        weeklyJobs = chartData.weeklyJobs;
 
         //update text boxes in settings
         $('#people').val(people);
         $('#dailyJobs').val(dailyJobs);
+        $('#weeklyJobs').val(weeklyJobs);
 
         initTable();
         return;
@@ -118,11 +130,12 @@ $("#settings").submit(function(e) {
     //get values from settings
     people = $('#people').val().split(',');
     dailyJobs = $('#dailyJobs').val().split(',');
+    weeklyJobs = $('#weeklyJobs').val().split(',');
 
     //save and reload
     saveData();
     initTable();
-    saveChecked()
+    saveChecked();
 
     $(".settings-container").removeClass("open-settings");
 
@@ -135,14 +148,13 @@ function resizeChart() {
 
 (function($) {
 
-    var resizeTimer; // Set resizeTimer to empty so it resets on page load
+    let resizeTimer; // Set resizeTimer to empty so it resets on page load
 
     function resizeFunction() {
         resizeChart();
     };
 
     // On resize, run the function and reset the timeout
-    // 250 is the delay in milliseconds. Change as you see fit.
     $(window).resize(function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(resizeFunction, 250);
@@ -150,23 +162,33 @@ function resizeChart() {
 
 })(jQuery);
 
-
 function initTable() {
+
     //clear table
     $("#chart > tbody").html("");
+
     // create a row for each name
     for (const name of people) {
         $("#chart > tbody").append(`<tr><th>${name}</th></tr>`);
     }
 
     //calculate day code from 0 to people.length
-    var dayCode = today % people.length;
+    let dayCode = today % people.length;
     console.log("current day code is " + dayCode)
+
+    //calculate week code from 0 to people.length
+    let weekCode = week % people.length;
+    console.log("current week code is " + weekCode)
 
 
     //add the daily jobs moving from row to row
-    for (var i = 0; i < dailyJobs.length; i++) {
-        $('#chart tr').eq((i + dayCode) % people.length).append($('<td />', { text: dailyJobs[i] }))
+    for (let i = 0; i < dailyJobs.length; i++) {
+        $('#chart tr').eq((i + dayCode) % people.length).append($('<td />', { text: dailyJobs[i], class: "dailyJob" }))
+    }
+
+    //add the weekly jobs moving from row to row
+    for (let i = 0; i < weeklyJobs.length; i++) {
+        $('#chart tr').eq((i + weekCode) % people.length).append($('<td />', { text: weeklyJobs[i], class: "weeklyJob" }))
     }
 
     //remove blanks
@@ -178,7 +200,6 @@ function initTable() {
 
     flipTable();
     resizeChart();
-
 
     //checking off items
     $("td").click(function(){
@@ -194,8 +215,8 @@ function initTable() {
 
 function flipTable() {
     //get dimensions (not including th)
-    var row = $('#chart tr').length;
-    var col = 0;
+    let row = $('#chart tr').length;
+    let col = 0;
     $("table").find("tr").each(function(){
         if ($(this).find("td").length > col) {
             col = $(this).find("td").length;
@@ -203,7 +224,7 @@ function flipTable() {
     })
 
     //clone the chart and clear the old one
-    var chart = $("#chart");
+    let chart = $("#chart");
     clone = chart.clone();
     chart.find("tr").remove();
 
@@ -212,9 +233,9 @@ function flipTable() {
     chart.find("tr:first").append(clone.find("th"));
 
     //copy td
-    for (var i = 0; i < col; ++i) {
+    for (let i = 0; i < col; ++i) {
         chart.append($("<tr></tr>"));
-        for (var j = 0; j < row; ++j) {
+        for (let j = 0; j < row; ++j) {
             newCell = clone.find("tr").eq(j).find("td").eq(i).clone();
             if (newCell.length == 0) {
                 chart.find("tr:last").append($("<td></td>"));
@@ -229,27 +250,28 @@ function flipTable() {
 
 //link importing
 
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+function getURLvars() {
+    let vars = {};
+    let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
         vars[key] = value;
     });
     return vars;
 }
 
-if (getUrlVars().sharing != undefined) {
+if (getURLvars().sharing != undefined) {
 
     if (getItem("chartData") == null || confirm("Importing from link. (Data will be replaced, this cannot be undone). Continue?") == true) {
         
-        alert("Imported from link. Following data was replaced: "+ JSON.stringify(getItem("chartData")));
+        alert("Imported from link. Following data will be replaced: "+ JSON.stringify(getItem("chartData")));
 
         try {
-            fromLink = JSON.parse(LZString.decompressFromEncodedURIComponent(getUrlVars().sharing));
-            var backup = getItem("chartData");
+            fromLink = JSON.parse(LZString.decompressFromEncodedURIComponent(getURLvars().sharing));
+            let backup = getItem("chartData");
             setItem("chartData", fromLink)
 
             people = fromLink.people;
             dailyJobs = fromLink.dailyJobs;
+            weeklyJobs = fromLink.weeklyJobs;
             saveData();
 
             window.location = window.location.pathname;
@@ -260,6 +282,7 @@ if (getUrlVars().sharing != undefined) {
             
             people = backup.people;
             dailyJobs = backup.dailyJobs;
+            weeklyJobs = backup.weeklyJobs;
             saveData();
 
             window.location = window.location.pathname;
@@ -269,23 +292,29 @@ if (getUrlVars().sharing != undefined) {
 }
 
 
-var hue = 30
+let hue = 30
 
 function changeColors(){
 
     //get dimensions (including th)
-    var row = $('#chart tr').length;
-    var col = Math.ceil($("table").find("tr td, th").length / row + 1)
+    let row = $('#chart tr').length;
+    let col = Math.ceil($("table").find("tr td, th").length / row + 1)
 
     chart = $("#chart")
 
     //colors
-    for (var i = 0; i < col; ++i) {
-        for (var j = 0; j < row; ++j) {
-            var currentCell = chart.find("tr").eq(j).find("td, th").eq(i);
-            var thOffset = 0;
+    for (let i = 0; i < col; ++i) {
+        for (let j = 0; j < row; ++j) {
+            let currentCell = chart.find("tr").eq(j).find("td, th").eq(i);
+            let thOffset = 0;
             if (j == 0) {
                 thOffset = 360 / col / 3
+            }
+            if (currentCell.hasClass("weeklyJob")) {
+                thOffset = -(360 / col / 3)
+            }
+            if (currentCell.html() === "") {
+                thOffset = -(360 / col / 3)
             }
             currentCell.css('background-color', 'hsl(' + (hue + i * (360 / col) - thOffset) + ', 100%, 70%)')
         }
@@ -296,7 +325,7 @@ function changeColors(){
 }
 
 
-//if when the site is loaded data exists remove splash
+//if when the site is loaded data not exists enable splash
 if (getItem("chartData") === null) {
     $(".splash-container").css("display","block");
 }
@@ -306,6 +335,7 @@ $(".splash-button").eq(0).click( function() {
     dailyJobs = ["wash dishes", "dry dishes", "clear off counters", "sweep floor",
         "mop floor", "set table", "clean living room", "clean bathroom",
         "load dishwasher", "empty dishwasher", "vacuum living room", "water the plant",];
+    weeklyJobs = ["mow front lawn", "mow back lawn","clean your room","clean the fridge"];
     saveData();
     loadData();
     initTable();
@@ -320,21 +350,36 @@ try {
 }
 
 changeColors();
-var colors = setInterval(changeColors, 1000);
+let colors = setInterval(changeColors, 1000);
 
 if (getItem("checkedArray") == null) {
-    checkedArray = [today];
+    checkedArray = {
+        daily: [today],
+        weekly: [week],
+    }
 } else {
     checkedArray = getItem("checkedArray");
 }
 
 function saveChecked() {
-    checkedArray = [today]; //reset array then loop through all
-    $("td").each(function() {
+    checkedArray.daily = [today]; //reset arrays
+    checkedArray.weekly = [week]; //reset array then loop through all
+
+    //daily checks
+    $(".dailyJob").each(function() {
         if ($(this).hasClass("done")) {
-            checkedArray.push(true)
+            checkedArray.daily.push(true)
         } else {
-            checkedArray.push(false)
+            checkedArray.daily.push(false)
+        }
+    })
+
+    //weekly checks
+    $(".weeklyJob").each(function() {
+        if ($(this).hasClass("done")) {
+            checkedArray.weekly.push(true)
+        } else {
+            checkedArray.weekly.push(false)
         }
     })
 
@@ -343,15 +388,27 @@ function saveChecked() {
 
     //load checked
 function loadChecked() {
-    if (checkedArray[0] == today && checkedArray.length > 1) {
-        $($("td").get().reverse()).each(function() { //iterate in reverse order
-            var current = checkedArray.pop();
+    //daily
+    if (checkedArray.daily[0] == today && checkedArray.daily.length > 1) {
+        $($(".dailyJob").get().reverse()).each(function() { //iterate in reverse order
+            let current = checkedArray.daily.pop();
+            if (current == true) {
+                $(this).addClass("done");
+            }
+        });
+    }
+
+    //weekly
+    if (checkedArray.weekly[0] == week && checkedArray.weekly.length > 1) {
+        $($(".weeklyJob").get().reverse()).each(function() { //iterate in reverse order
+            let current = checkedArray.weekly.pop();
             if (current == true) {
                 $(this).addClass("done");
             }
         });
     }
 }
+
 loadChecked();
 
 $(".settings-icon-container").click(function(){
@@ -365,7 +422,7 @@ $(".settings-close").click(function(){
 
 $("#clear-all-data").click(function(){
     if (confirm("ARE YOU SURE YOU WANT TO CLEAR ALL DATA? THIS CANNOT BE UNDONE?") == true &&
-        prompt("Type DELETE to confirm") === "DELETE") {
+        prompt("Type delete to confirm") === "delete") {
             localStorage.clear();
             alert("deleted");
             location.reload();
@@ -376,8 +433,8 @@ $("#clear-all-data").click(function(){
 
 autosize($('textarea'))
 
-var slider = document.getElementById("zoomSlider");
-var output = document.getElementById("zoomLevel");
+let slider = document.getElementById("zoomSlider");
+let output = document.getElementById("zoomLevel");
 
 //the process is different if already modified due to slider max value
 if (getItem("zoom") != null) {
@@ -401,11 +458,11 @@ slider.oninput = function() {
 
 $("#zoomLevel").keypress(function(e){ return e.which != 13; });
 
-var zoomLevelTimeout;
+let zoomLevelTimeout;
 
 //update value when typed
 $("#zoomLevel").on("input",function(){
-    var value = $("#zoomLevel").html();
+    let value = $("#zoomLevel").html();
     if (!isNaN(value)) {
         slider.value = value;
         $("#chart").css("font-size", `${value}%`);
@@ -425,7 +482,7 @@ $("#zoomLevel").on("input",function(){
 })
 
 //make everything transparent on zoom slider 
-var settingsContainerCSS = $(".settings-container").css("background");
+let settingsContainerCSS = $(".settings-container").css("background");
 
 $("#zoomSlider").on("touchstart mousedown", function(){
     $(".settings-container").css("background", "none");
@@ -481,10 +538,10 @@ if (isIOS) {
 }
 
 $(".open-visual-editor").click(function(){
-    var loc = window.location.pathname;
-    var dir = loc.substring(0, loc.lastIndexOf('/'));
+    let loc = window.location.pathname;
+    let dir = loc.substring(0, loc.lastIndexOf('/'));
 
-    var editor = dir + "/editor.html?edit=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData));
+    let editor = dir + "/editor.html?edit=" + LZString.compressToEncodedURIComponent(JSON.stringify(chartData));
 
     window.location.replace(editor);
     

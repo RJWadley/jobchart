@@ -12,15 +12,15 @@ $(".splash-button").eq(2).click( function() {
 
 //auto reload at midnight
 
-function minutesUntilMidnight() {
+function msUntilMidnight() {
     var midnight = new Date();
     midnight.setHours( 24 );
     midnight.setMinutes( 0 );
     midnight.setSeconds( 0 );
     midnight.setMilliseconds( 0 );
-    return ( midnight.getTime() - new Date().getTime() ) / 1000 / 60;
+    return ( midnight.getTime() - new Date().getTime() );
 }
 
 setTimeout(() => {
-    window.reload();
-}, (minutesUntilMidnight() * 60 * 1000));
+    location.reload();
+}, (msUntilMidnight()));
