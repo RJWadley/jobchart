@@ -407,25 +407,35 @@ function saveChecked() {
 
     //load checked
 function loadChecked() {
-    //daily
-    if (checkedArray.daily[0] == today && checkedArray.daily.length > 1) {
-        $($(".dailyJob").get().reverse()).each(function() { //iterate in reverse order
-            let current = checkedArray.daily.pop();
-            if (current == true) {
-                $(this).addClass("done");
-            }
-        });
+    try {
+        //daily
+        if (checkedArray.daily[0] == today && checkedArray.daily.length > 1) {
+            $($(".dailyJob").get().reverse()).each(function() { //iterate in reverse order
+                let current = checkedArray.daily.pop();
+                if (current == true) {
+                    $(this).addClass("done");
+                }
+            });
+        }
+
+        //weekly
+        if (checkedArray.weekly[0] == week && checkedArray.weekly.length > 1) {
+            $($(".weeklyJob").get().reverse()).each(function() { //iterate in reverse order
+                let current = checkedArray.weekly.pop();
+                if (current == true) {
+                    $(this).addClass("done");
+                }
+            });
+        }
+    } catch(error) {
+        console.log(error);
+        console.log("probably just out of date- will fix itself");
+        checkedArray = {
+            daily: [today],
+            weekly: [week],
+        }
     }
 
-    //weekly
-    if (checkedArray.weekly[0] == week && checkedArray.weekly.length > 1) {
-        $($(".weeklyJob").get().reverse()).each(function() { //iterate in reverse order
-            let current = checkedArray.weekly.pop();
-            if (current == true) {
-                $(this).addClass("done");
-            }
-        });
-    }
 }
 
 loadChecked();
