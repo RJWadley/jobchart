@@ -34,7 +34,7 @@ function importData(data){
                 $("table").eq(1).append("<tr></tr>");
             }
             if (data.dailyJobs[i] === undefined) {
-                $("tr").last().append($("<td />"));
+                $("tr").last().append($("<td contenteditable/>"));
             } else {
                 $("tr").last().append($(`<td contenteditable>${data.dailyJobs[i]}</td>`));
             }
@@ -45,7 +45,7 @@ function importData(data){
                 $("table").eq(2).append("<tr></tr>");
             }
             if (data.weeklyJobs[i] === undefined) {
-                $("tr").last().append($("<td />"));
+                $("tr").last().append($("<td contenteditable/>"));
             } else {
                 $("tr").last().append($(`<td contenteditable>${data.weeklyJobs[i]}</td>`));
             }

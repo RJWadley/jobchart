@@ -18,6 +18,10 @@
     grid-column: 1/-1;
 }
 
+.settings-tall {
+    grid-row-end: span 2;
+}
+
 .open-settings {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;

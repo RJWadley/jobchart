@@ -34,6 +34,7 @@ function getItem(name) {
     return data;
 }
 
+
 function saveData() {
     //compose a data object and save it
     chartData = {
@@ -49,13 +50,74 @@ function saveData() {
 
 }
 
+function importData(data) {
+    let backup;
+
+    try {
+        data = JSON.parse(data);
+        backup = chartData;
+        chartData = data;
+
+        people = chartData.people;
+        if (chartData.dailyJobs !== undefined) {
+            dailyJobs = chartData.dailyJobs;
+        } else {
+            dailyJobs = [];
+        }
+        if (chartData.weeklyJobs !== undefined) {
+            weeklyJobs = chartData.weeklyJobs;
+        } else {
+            weeklyJobs = [];
+        }
+
+        //update text boxes in settings
+        $('#people').val(people);
+        $('#dailyJobs').val(dailyJobs);
+        $('#weeklyJobs').val(weeklyJobs);
+
+        saveData();
+        initTable();
+
+        return true;
+
+    } catch(error) {
+
+        console.log(error);
+
+        if (backup !== undefined) {
+            chartData = backup;
+
+            people = chartData.people;
+            if (chartData.dailyJobs !== undefined) {
+                dailyJobs = chartData.dailyJobs;
+            }
+            if (chartData.weeklyJobs !== undefined) {
+                weeklyJobs = chartData.weeklyJobs;
+            }
+
+        }
+
+        //update text boxes in settings
+        $('#people').val(people);
+        $('#dailyJobs').val(dailyJobs);
+        $('#weeklyJobs').val(weeklyJobs);
+
+        initTable();
+        return false;
+    }
+}
+
 function loadData() {
     //load the data from localStorage and assign local variables
     chartData = getItem("chartData");
 
     people = chartData.people;
-    dailyJobs = chartData.dailyJobs;
-    weeklyJobs = chartData.weeklyJobs;
+    if (chartData.dailyJobs !== undefined) {
+        dailyJobs = chartData.dailyJobs;
+    }
+    if (chartData.weeklyJobs !== undefined) {
+        weeklyJobs = chartData.weeklyJobs;
+    }
 
     //update text boxes in settings
     $('#people').val(people);
@@ -89,42 +151,13 @@ $("#export").click(function(){
 $("#import").click(function(){
     let pasted = prompt("Paste the code you copied:");
 
-    let backup;
-
-    try {
-        pasted = JSON.parse(pasted);
-        backup = chartData;
-        chartData = pasted;
-
-        people = chartData.people;
-        dailyJobs = chartData.dailyJobs;
-        weeklyJobs = chartData.weeklyJobs;
-
-        //update text boxes in settings
-        $('#people').val(people);
-        $('#dailyJobs').val(dailyJobs);
-        $('#weeklyJobs').val(weeklyJobs);
-
-        saveData();
-        initTable();
-    } catch {
-        alert("invalid code");
-
-        chartData = backup;
-
-        people = chartData.people;
-        dailyJobs = chartData.dailyJobs;
-        weeklyJobs = chartData.weeklyJobs;
-
-        //update text boxes in settings
-        $('#people').val(people);
-        $('#dailyJobs').val(dailyJobs);
-        $('#weeklyJobs').val(weeklyJobs);
-
-        initTable();
-        return;
+    if (importData(pasted)) {
+        alert("successfully imported!")
+        $(".settings-container").removeClass("open-settings");
+    } else {
+        alert("invalid. Try again?")
     }
-    alert("successfully imported!")
+    
 });
 
 $("#settings").submit(function(e) {
@@ -256,7 +289,7 @@ function flipTable() {
 function getURLvars() {
     let vars = {};
     let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-        vars[key] = value;
+        vars[key] = value;``
     });
     return vars;
 }
@@ -265,31 +298,14 @@ if (getURLvars().sharing != undefined) {
 
     if (getItem("chartData") == null || confirm("Importing and replacing data. Continue?") == true) {
         
-        let backup;
+        let fromLink = LZString.decompressFromEncodedURIComponent(getURLvars().sharing);
 
-        try {
-            fromLink = JSON.parse(LZString.decompressFromEncodedURIComponent(getURLvars().sharing));
-            backup = getItem("chartData");
-            setItem("chartData", fromLink)
-
-            people = fromLink.people;
-            dailyJobs = fromLink.dailyJobs;
-            weeklyJobs = fromLink.weeklyJobs;
-            saveData();
-
+        if (importData(fromLink)) {
             window.location = window.location.pathname;
-
-        } catch {
-
-            alert("error importing!! reverting...")
-            
-            people = backup.people;
-            dailyJobs = backup.dailyJobs;
-            weeklyJobs = backup.weeklyJobs;
-            saveData();
-
-            window.location = window.location.pathname;
+        } else {
+            alert("There was a problem importing.") 
         }
+
     }
 
 }
