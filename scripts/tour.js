@@ -1,6 +1,6 @@
 // Instance the tour
 var tour = new Tour({
-  backdrop: true,
+  backdrop: false,
   debug: true,
   onStart: function(){
         $("tr").first().attr("id", "firstheader");
@@ -65,7 +65,7 @@ var tour = new Tour({
     content: "Click this gear to open settings.",
     onNext: function(){
         $(".settings-container").addClass("open-settings");
-        document.getElementById("people").scrollIntoView();
+        document.getElementById("settings-title").scrollIntoView();
     }
   },
   {
@@ -94,43 +94,50 @@ var tour = new Tour({
     element: "#s2",
     title: "Zoom",
     content: "Slide the slider to make text bigger or smaller, or type in a value directly.",
-    placement: "bottom",
+    placement: "auto",
     onShow: function(){document.getElementById("s2").scrollIntoView();}
   },
   {
     element: "#s3",
     title: "Link Sharing",
     content: "Link sharing will create a link using your current chart, which can be shared. Shared links become completely seperate from your chart, and changes to them will not affect this chart.",
-    placement: "bottom",
+    placement: "auto",
     onShow: function(){document.getElementById("s3").scrollIntoView();}
   },
   {
     element: "#s4",
     title: "Backup, Export, and Import",
     content: "This will export your chart as text, which can be saved as a backup and/or imported.",
-    placement: "bottom",
+    placement: "auto",
     onShow: function(){document.getElementById("s4").scrollIntoView();}
   },
   {
     element: "#s5",
     title: "Web App",
     content: "This chart can be installed as an app.",
-    placement: "bottom",
+    placement: "auto",
     onShow: function(){document.getElementById("s5").scrollIntoView();}
   },
   {
     element: "#s6",
     title: "Web App",
     content: "This chart can be installed as an app.",
-    placement: "bottom",
+    placement: "auto",
     onShow: function(){document.getElementById("s6").scrollIntoView();}
   },
   {
     element: "#s7",
     title: "Feedback",
     content: "Report bugs, issues, or suggestions here.",
-    placement: "bottom",
+    placement: "auto",
     onShow: function(){document.getElementById("s7").scrollIntoView();}
+  },
+  {
+    element: "#s8",
+    title: "Clear Data",
+    content: "All data is stored locally. Clearing cookies may clear all chart data.",
+    placement: "auto",
+    onShow: function(){document.getElementById("s8").scrollIntoView();}
   }
 ]})
 
