@@ -482,7 +482,7 @@ function isEqual(a, b) {
 window.addEventListener("storage", function () {
     try {
 
-        if (localStorage.getItem("tour_end") !== 'yes' && localStorage.getItem("tour_current_step") !== null) { localStorage.getItem("tour_current_step") !== null ) {
+        if (localStorage.getItem("tour_end") !== 'yes' && localStorage.getItem("tour_current_step") !== null ) {
             return;
         }
 
