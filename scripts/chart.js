@@ -371,15 +371,6 @@ try {
 changeColors();
 let colors = setInterval(changeColors, 1000);
 
-if (getItem("checkedArray") == null) {
-    checkedArray = {
-        daily: [today],
-        weekly: [week],
-    }
-} else {
-    checkedArray = getItem("checkedArray");
-}
-
 function saveChecked() {
     checkedArray.daily = [today]; //reset arrays
     checkedArray.weekly = [week]; //reset array then loop through all
@@ -407,6 +398,16 @@ function saveChecked() {
 
     //load checked
 function loadChecked() {
+
+    if (getItem("checkedArray") == null) {
+        checkedArray = {
+            daily: [today],
+            weekly: [week],
+        }
+    } else {
+        checkedArray = getItem("checkedArray");
+    }
+
     try {
         //daily
         if (checkedArray.daily[0] == today && checkedArray.daily.length > 1) {
@@ -414,6 +415,8 @@ function loadChecked() {
                 let current = checkedArray.daily.pop();
                 if (current == true) {
                     $(this).addClass("done");
+                } else {
+                    $(this).removeClass("done");
                 }
             });
         }
@@ -424,12 +427,18 @@ function loadChecked() {
                 let current = checkedArray.weekly.pop();
                 if (current == true) {
                     $(this).addClass("done");
+                } else {
+                    $(this).removeClass("done");
                 }
             });
         }
+        
+        //refresh checked so we can view the current values of the checked items
+        if (getItem("checkedArray") !== null) checkedArray = getItem("checkedArray");
+
     } catch(error) {
         console.log(error);
-        console.log("probably just out of date- will fix itself");
+        console.log("probably just out of date- fixing now");
         checkedArray = {
             daily: [today],
             weekly: [week],
@@ -439,6 +448,56 @@ function loadChecked() {
 }
 
 loadChecked();
+
+
+//Storage Change Listener
+
+function isEqual(a, b) {
+
+    var aProps = Object.getOwnPropertyNames(a);
+    var bProps = Object.getOwnPropertyNames(b);
+
+    // If no of properties is different then not same
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+
+    for (var i = 0; i < aProps.length; i++) {
+        var propName = aProps[i];
+
+        for (var j = 0; j < a[propName].length; j++) {
+            if (a[propName][j] !== b[propName][j]) {
+                return false;
+            }
+        }
+
+    }
+
+    // If we made it this far, objects
+    // are considered equivalent
+    return true;
+}
+
+
+window.addEventListener("storage", function () {
+    try {
+
+        if (localStorage.getItem("tour_end") !== 'yes') {
+            return;
+        }
+
+        if (!(isEqual(getItem("checkedArray"), checkedArray))) {
+            loadChecked()
+        }
+
+        if (!(isEqual(getItem("chartData"), chartData))) {
+            location.reload();
+        }
+    } catch {
+        location.reload();
+    }
+
+}, false);
 
 $(".settings-icon-container").click(function(){
     $(".settings-container").addClass("open-settings");
