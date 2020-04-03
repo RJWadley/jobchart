@@ -482,7 +482,7 @@ function isEqual(a, b) {
 window.addEventListener("storage", function () {
     try {
 
-        if (localStorage.getItem("tour_end") !== 'yes') {
+        if (localStorage.getItem("tour_end") !== 'yes' && localStorage.getItem("tour_current_step") !== null) { localStorage.getItem("tour_current_step") !== null ) {
             return;
         }
 
@@ -634,3 +634,5 @@ $(".open-visual-editor").click(function(){
     window.location.replace(editor);
     
 })
+
+localStorage.setItem("version", "20.4.3.1443")
