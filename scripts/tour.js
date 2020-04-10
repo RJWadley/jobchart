@@ -44,6 +44,13 @@ var tour = new Tour({
     }
   },
   {
+    element: "#secondrow",
+    title: "Crossing Items",
+    content: "Click on an item to cross it off the list. Go ahead and try it!",
+    placement: "bottom",
+    onShow: function(){}
+  },
+  {
     element: "#lastrow",
     title: "Weekly Jobs",
     content: "Here are some example weekly chores I've put on your job chart.",
